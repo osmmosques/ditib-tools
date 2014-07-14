@@ -49,8 +49,8 @@ do
 
     extract_data ${page}
 
-    find ${STORAGE}/${source}-${country} -type f -a -mtime +14 | xargs --no-run-if-empty rm {} \;
-    find ${STORAGE}/${source}-${country} -type d -a -empty | xargs --no-run-if-empty rmdir {} \;
+    find ${STORAGE}/${source}-${country} -type f -a -mtime +14 | xargs --no-run-if-empty rm
+    find ${STORAGE}/${source}-${country} -type d -a -empty | xargs --no-run-if-empty rmdir
 done
 
 # TODO grep in property file to obtain username / password for webapp
