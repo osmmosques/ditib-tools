@@ -40,9 +40,9 @@ do
     FILE=${HOME}/tmp/${source}-${country}-${page}.html
 
     rm -f ${FILE}
-    # wget http://download.geofabrik.de/osm/europe/${country}-${county}.osm.pbf
-    # wget -q http://download.geofabrik.de/europe/${country}/${county}-latest.osm.pbf -O ${FILE}
-    wget -q "http://www.ditib.de/default.php?pageNum_kat="${page}"&id=12&lang=de&12" -O ${FILE}
+
+    wget "http://www.ditib.de/default.php?pageNum_kat="${page}"&id=12&lang=de&12" -O ${FILE} \
+	> ${FILE}.out 2> ${FILE}.err
 
     MONTH=$(date +%Y%m --reference ${FILE})
     DAY=$(date +%Y%m%d --reference ${FILE})
