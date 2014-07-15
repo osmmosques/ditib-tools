@@ -2,6 +2,7 @@
 
 OSMOSIS=${HOME}/osmosis-0.43.1
 STORAGE=${HOME}/Dropbox/osmdata
+TMPDIR=${HOME}/tmp/osm-place-connectivity
 WEBDATA=/home/tomcat/osm-mosques/data
 
 COUNTRY=germany
@@ -15,7 +16,7 @@ extract_data() {
 
     page=$1
 
-    FILE=${HOME}/tmp/${source}-${country}-${page}.html
+    FILE=${TMPDIR}/${source}-${country}-${page}.html
 
     mkdir -p ${STORAGE}/${source}-${country}/${MONTH}/${DAY}
 
@@ -34,10 +35,10 @@ source=${SOURCE}
 for page in $(seq 1 8)
 do
     :
-    mkdir -p ${HOME}/tmp
-    cd ${HOME}/tmp
+    mkdir -p ${TMPDIR}
+    cd ${TMPDIR}
 
-    FILE=${HOME}/tmp/${source}-${country}-${page}.html
+    FILE=${TMPDIR}/${source}-${country}-${page}.html
 
     rm -f ${FILE}
 
