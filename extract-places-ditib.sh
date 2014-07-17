@@ -50,7 +50,7 @@ do
 
     extract_data ${page}
 
-    find ${STORAGE}/${country} -type f -a -mtime +14 | xargs --no-run-if-empty
+    find ${STORAGE}/${country} -type f -a -mtime +14 | xargs --no-run-if-empty rm
     find ${STORAGE}/${country} -type d -a -empty | xargs --no-run-if-empty rmdir
 done
 
