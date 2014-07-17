@@ -45,10 +45,16 @@ do
     wget "http://www.ditib.de/default.php?pageNum_kat="${page}"&id=12&lang=de&12" -O ${FILE} \
 	> ${FILE}.out 2> ${FILE}.err
 
-    MONTH=$(date +%Y%m --reference ${FILE})
-    DAY=$(date +%Y%m%d --reference ${FILE})
+    if [ -a ${FILE} ] 
+    then
+	if [ -s ${FILE} ]
+	then
+	    MONTH=$(date +%Y%m --reference ${FILE})
+	    DAY=$(date +%Y%m%d --reference ${FILE})
 
-    extract_data ${page}
+	    extract_data ${page}
+	fi
+    fi
 
     find ${STORAGE}/${country} -type f -a -mtime +14 | xargs --no-run-if-empty rm
     find ${STORAGE}/${country} -type d -a -empty | xargs --no-run-if-empty rmdir
