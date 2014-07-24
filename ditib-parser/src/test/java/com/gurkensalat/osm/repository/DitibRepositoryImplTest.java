@@ -4,6 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 
+import java.io.File;
+import java.io.IOException;
+
 public class DitibRepositoryImplTest
 {
     DitibRepositoryImpl testable;
@@ -16,7 +19,10 @@ public class DitibRepositoryImplTest
     }
 
     @Test
-    public void parseGermeringData()
+    public void parseGermeringData() throws IOException
     {
+        File file = new File("src/test/resources/ditib-germering.html");
+
+        testable.parse(file);
     }
 }
