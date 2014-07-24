@@ -19,10 +19,10 @@ public class DitibRepositoryImplTest
     }
 
     @Test
-    public void parseGermeringData() throws IOException
+    public void prettifyGermeringData() throws IOException
     {
         File file = new File("src/test/resources/ditib-germering.html");
 
-        testable.parse(file);
+        testable.prettify(new File("target"), file);
     }
 }
