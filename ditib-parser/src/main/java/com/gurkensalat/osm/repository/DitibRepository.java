@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface DitibRepository
 {
-    List<DitibPlace> prettify(File target, File resourceFile);
+    List<DitibPlace> parse(File resourceFile);
+
+    void prettify(File target, File resourceFile);
 }
