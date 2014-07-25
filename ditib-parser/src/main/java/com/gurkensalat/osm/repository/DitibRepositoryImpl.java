@@ -4,6 +4,7 @@ import com.gurkensalat.osm.entity.DitibPlace;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.parser.Tag;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,29 +47,19 @@ public class DitibRepositoryImpl implements DitibRepository
                     Elements rows = selection.select("tbody > tr");
                     if (isNotEmpty(rows))
                     {
-                        DitibPlace place = new DitibPlace();
 
                         int rowNumber = 0;
                         for (Element row : rows)
                         {
                             LOGGER.debug("  qw qw qw -------------------------------------------------------");
                             String foo = element.toString();
-                            LOGGER.debug("  qw qw qw {}", rowNumber, element);
-                            switch (rowNumber)
-                            {
-                                case 0:
-                                    place = extractPlaceName(row, place);
-                                    break;
-
-                                default:
-                                    break;
-                            }
-
-                            rowNumber++;
+                            LOGGER.debug("  qw qw qw {}", rowNumber++, element);
                         }
-
-                        result.add(place);
                     }
+
+                    DitibPlace place = new DitibPlace();
+                    place = extractPlaceName(safeGetElement(rows, 0), place);
+                    result.add(place);
                 }
             }
         }
@@ -98,6 +89,21 @@ public class DitibRepositoryImpl implements DitibRepository
         }
 
         return place;
+    }
+
+    protected Element safeGetElement(Elements e, int index)
+    {
+        Element result = new Element(Tag.valueOf("body"), "no-where");
+
+        if (e != null)
+        {
+            if (e.size() > index)
+            {
+                result = e.get(index);
+            }
+        }
+
+        return result;
     }
 
     public void prettify(File target, File resourceFile)
