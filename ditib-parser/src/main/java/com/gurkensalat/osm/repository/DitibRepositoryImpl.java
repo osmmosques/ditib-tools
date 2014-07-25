@@ -26,7 +26,7 @@ public class DitibRepositoryImpl implements DitibRepository
 
     public List<DitibPlace> parse(File resourceFile)
     {
-        List<DitibPlace> result = null;
+        List<DitibPlace> result = new ArrayList<DitibPlace>();
 
         try
         {
