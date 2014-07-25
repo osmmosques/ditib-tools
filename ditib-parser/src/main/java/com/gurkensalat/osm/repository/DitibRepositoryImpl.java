@@ -47,19 +47,14 @@ public class DitibRepositoryImpl implements DitibRepository
                     Elements rows = selection.select("tbody > tr");
                     if (isNotEmpty(rows))
                     {
-
-                        int rowNumber = 0;
-                        for (Element row : rows)
-                        {
-                            LOGGER.debug("  qw qw qw -------------------------------------------------------");
-                            String foo = element.toString();
-                            LOGGER.debug("  qw qw qw {}", rowNumber++, element);
-                        }
+                        DitibPlace place = new DitibPlace();
+                        place = extractPlaceCode(safeGetElement(rows, 0), place);
+                        place = extractFoo1(safeGetElement(rows, 1), place);
+                        place = extractFoo2(safeGetElement(rows, 2), place);
+                        place = extractFoo3(safeGetElement(rows, 3), place);
+                        place = extractFoo4(safeGetElement(rows, 4), place);
+                        result.add(place);
                     }
-
-                    DitibPlace place = new DitibPlace();
-                    place = extractPlaceName(safeGetElement(rows, 0), place);
-                    result.add(place);
                 }
             }
         }
@@ -72,9 +67,12 @@ public class DitibRepositoryImpl implements DitibRepository
         return result;
     }
 
-    protected DitibPlace extractPlaceName(Element block, DitibPlace place)
+    protected DitibPlace extractPlaceCode(Element block, DitibPlace place)
     {
-        LOGGER.debug("extractPlaceName()");
+        LOGGER.debug("extractPlaceCode()");
+        LOGGER.debug("-------------------------------------------------------");
+        LOGGER.debug("{}", block.toString());
+        LOGGER.debug("-------------------------------------------------------");
 
         // fsck css, just run indexOf :-(
         String data = block.toString();
@@ -87,6 +85,46 @@ public class DitibRepositoryImpl implements DitibRepository
             data = data.replaceAll("&nbsp;", "");
             place.setDitibCode(data);
         }
+
+        return place;
+    }
+
+    protected DitibPlace extractFoo1(Element block, DitibPlace place)
+    {
+        LOGGER.debug("extractFoo1()");
+        LOGGER.debug("-------------------------------------------------------");
+        LOGGER.debug("{}", block.toString());
+        LOGGER.debug("-------------------------------------------------------");
+
+        return place;
+    }
+
+    protected DitibPlace extractFoo2(Element block, DitibPlace place)
+    {
+        LOGGER.debug("-------------------------------------------------------");
+        LOGGER.debug("extractFoo2()");
+        LOGGER.debug("{}", block.toString());
+        LOGGER.debug("-------------------------------------------------------");
+
+        return place;
+    }
+
+    protected DitibPlace extractFoo3(Element block, DitibPlace place)
+    {
+        LOGGER.debug("extractFoo3()");
+        LOGGER.debug("-------------------------------------------------------");
+        LOGGER.debug("{}", block.toString());
+        LOGGER.debug("-------------------------------------------------------");
+
+        return place;
+    }
+
+    protected DitibPlace extractFoo4(Element block, DitibPlace place)
+    {
+        LOGGER.debug("extractFoo4()");
+        LOGGER.debug("-------------------------------------------------------");
+        LOGGER.debug("{}", block.toString());
+        LOGGER.debug("-------------------------------------------------------");
 
         return place;
     }
