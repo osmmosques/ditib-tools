@@ -16,7 +16,7 @@ import javax.persistence.Version;
 
 @Entity
 @Table(name = "PLACES")
-public class DitibPlace extends AbstractPersistable<Long>
+public class DitibPlaceDto extends AbstractPersistable<Long>
 {
     @Version
     @Column(name = "VERSION")
@@ -31,11 +31,11 @@ public class DitibPlace extends AbstractPersistable<Long>
     @Column(name = "NAME", length = 40)
     private String name;
 
-    protected DitibPlace()
+    protected DitibPlaceDto()
     {
     }
 
-    public  DitibPlace(String name)
+    public DitibPlaceDto(String name)
     {
         this.name = name;
     }
