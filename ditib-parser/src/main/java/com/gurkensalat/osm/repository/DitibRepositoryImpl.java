@@ -37,13 +37,39 @@ public class DitibRepositoryImpl implements DitibRepository
 
             if (isNotEmpty(selection))
             {
-            }
+                int hitNumber = 0;
+                for (Element element : selection)
+                {
+                    LOGGER.debug("-------------------------------------------------------");
+                    LOGGER.debug("Found: {}, {}", hitNumber++, element);
 
-            int hitNumber = 0;
-            for (Element element : selection)
-            {
-                LOGGER.debug("-------------------------------------------------------");
-                LOGGER.debug("Found: {}, {}", hitNumber++, element);
+                    Elements rows = selection.select("tbody > tr");
+                    if (isNotEmpty(rows))
+                    {
+                        DitibPlace place = new DitibPlace();
+
+                        int rowNumber = 0;
+                        for (Element row : rows)
+                        {
+                            LOGGER.debug("  qw qw qw -------------------------------------------------------");
+                            String foo = element.toString();
+                            LOGGER.debug("  qw qw qw {}", rowNumber, element);
+                            switch (rowNumber)
+                            {
+                                case 0:
+                                    place = extractPlaceName(row, place);
+                                    break;
+
+                                default:
+                                    break;
+                            }
+
+                            rowNumber++;
+                        }
+
+                        result.add(place);
+                    }
+                }
             }
         }
         catch (IOException ioe)
@@ -53,6 +79,25 @@ public class DitibRepositoryImpl implements DitibRepository
 
         result = emptyIfNull(result);
         return result;
+    }
+
+    protected DitibPlace extractPlaceName(Element block, DitibPlace place)
+    {
+        LOGGER.debug("extractPlaceName()");
+
+        // fsck css, just run indexOf :-(
+        String data = block.toString();
+        int from = data.lastIndexOf("<strong>");
+        int to = data.lastIndexOf("</strong>");
+
+        if (from != -1 && to != -1)
+        {
+            data = data.substring(from + 8, to);
+            data = data.replaceAll("&nbsp;", "");
+            place.setDitibCode(data);
+        }
+
+        return place;
     }
 
     public void prettify(File target, File resourceFile)
