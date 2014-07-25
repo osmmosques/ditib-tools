@@ -49,7 +49,8 @@ public class DitibRepositoryImpl implements DitibRepository
                     {
                         DitibPlace place = new DitibPlace();
                         place = extractPlaceCode(safeGetElement(rows, 0), place);
-                        place = extractFoo1(safeGetElement(rows, 1), place);
+                        place = extractPlaceName(safeGetElement(rows, 1), place);
+                        place = extractPhoneNumber(safeGetElement(rows, 1), place);
                         place = extractFoo2(safeGetElement(rows, 2), place);
                         place = extractFoo3(safeGetElement(rows, 3), place);
                         place = extractFoo4(safeGetElement(rows, 4), place);
@@ -89,12 +90,29 @@ public class DitibRepositoryImpl implements DitibRepository
         return place;
     }
 
-    protected DitibPlace extractFoo1(Element block, DitibPlace place)
+    protected DitibPlace extractPlaceName(Element block, DitibPlace place)
     {
-        LOGGER.debug("extractFoo1()");
+        LOGGER.debug("extractPlaceName()");
         LOGGER.debug("-------------------------------------------------------");
         LOGGER.debug("{}", block.toString());
         LOGGER.debug("-------------------------------------------------------");
+
+        String data = block.toString();
+        place.setName(safeGetText(block, 2));
+
+        return place;
+    }
+
+    protected DitibPlace extractPhoneNumber(Element block, DitibPlace place)
+    {
+        LOGGER.debug("extractPhoneNumber()");
+        LOGGER.debug("-------------------------------------------------------");
+        LOGGER.debug("{}", block.toString());
+        LOGGER.debug("-------------------------------------------------------");
+
+        String data = block.toString();
+        // WTF parser, should be 5?
+        place.setPhone(safeGetText(block, 6));
 
         return place;
     }
@@ -138,6 +156,26 @@ public class DitibRepositoryImpl implements DitibRepository
             if (e.size() > index)
             {
                 result = e.get(index);
+            }
+        }
+
+        return result;
+    }
+
+    protected String safeGetText(Element element, int index)
+    {
+        String result = "";
+
+        if (element != null)
+        {
+            if (element.getAllElements() != null)
+            {
+                if (element.getAllElements().size() >= index)
+                {
+                    Element work;
+                    work = element.getAllElements().get(index);
+                    result = work.text();
+                }
             }
         }
 

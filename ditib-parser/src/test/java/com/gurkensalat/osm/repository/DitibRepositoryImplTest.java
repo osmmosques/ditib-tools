@@ -11,6 +11,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 
 public class DitibRepositoryImplTest
 {
@@ -36,6 +37,10 @@ public class DitibRepositoryImplTest
         DitibPlace place = result.get(0);
         assertNotNull(place);
         assertEquals("GERMERING", place.getDitibCode());
+        assertNotNull(place.getName());
+        assertNotSame("", place.getName());
+        assertNotNull(place.getPhone());
+        assertNotSame("", place.getPhone());
     }
 
     @Test
