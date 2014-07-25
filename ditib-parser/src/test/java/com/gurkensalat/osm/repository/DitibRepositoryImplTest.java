@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class DitibRepositoryImplTest
@@ -30,6 +31,11 @@ public class DitibRepositoryImplTest
         List<DitibPlace> result = testable.parse(file);
 
         assertNotNull(result);
+        assertEquals(1, result.size());
+
+        DitibPlace place = result.get(0);
+        assertNotNull(place);
+        assertEquals("GERMERING", place.getDitibCode());
     }
 
     @Test
