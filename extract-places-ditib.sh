@@ -62,12 +62,19 @@ done
 
 # TODO grep in property file to obtain username / password for webapp
 country=${COUNTRY}
-for county in ${PAGES}
+for country in germany
 do
     :
-    # curl \
-    # http://localhost:8888/osm-mosques-rest/osm/import \
-    # -o ${STORAGE}/${country}-${county}/${MONTH}/${DAY}/curl.data.txt \
-    # > ${STORAGE}/${country}-${county}/${MONTH}/${DAY}/curl.out \
-    # 2> ${STORAGE}/${country}-${county}/${MONTH}/${DAY}/curl.err
+
+    curl \
+	"http://localhost:8888/osm-mosques-rest/ditib/import" \
+	-o ${STORAGE}/${country}/${MONTH}/${DAY}/curl-ditib-places-import.txt \
+	> ${STORAGE}/${country}/${MONTH}/${DAY}/curl-ditib-places-import.out \
+	2> ${STORAGE}/${country}/${MONTH}/${DAY}/curl-ditib-places-import.err
+
+    curl \
+	"http://localhost:8888/osm-mosques-rest/place?size=999&sort=name" \
+	-o ${STORAGE}/${country}/${MONTH}/${DAY}/curl-ditib-places-data.txt \
+	> ${STORAGE}/${country}/${MONTH}/${DAY}/curl-ditib-places-data.out \
+	2> ${STORAGE}/${country}/${MONTH}/${DAY}/curl-ditib-places-data.err
 done
