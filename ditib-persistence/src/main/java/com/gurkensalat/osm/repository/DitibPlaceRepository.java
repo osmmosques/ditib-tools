@@ -7,7 +7,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
 
-@RepositoryRestResource(collectionResourceRel = "place", path = "place")
+@RepositoryRestResource(collectionResourceRel = "ditibPlace", path = "ditibPlace")
 public interface DitibPlaceRepository extends PagingAndSortingRepository<DitibPlace, Long>
 {
     List<DitibPlace> findByKey(@Param("key") String key);

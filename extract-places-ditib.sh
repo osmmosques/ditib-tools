@@ -73,7 +73,7 @@ do
 	2> ${STORAGE}/${country}/${MONTH}/${DAY}/curl-ditib-places-import.err
 
     curl \
-	"http://localhost:8888/osm-mosques-rest/place?size=999&sort=name" \
+	"http://localhost:8888/osm-mosques-rest/ditibPlace?size=999&sort=name" \
 	-o ${STORAGE}/${country}/${MONTH}/${DAY}/curl-ditib-places-data.txt \
 	> ${STORAGE}/${country}/${MONTH}/${DAY}/curl-ditib-places-data.out \
 	2> ${STORAGE}/${country}/${MONTH}/${DAY}/curl-ditib-places-data.err
