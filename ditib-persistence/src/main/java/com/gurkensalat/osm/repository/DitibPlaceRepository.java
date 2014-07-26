@@ -10,5 +10,7 @@ import java.util.List;
 @RepositoryRestResource(collectionResourceRel = "place", path = "place")
 public interface DitibPlaceRepository extends PagingAndSortingRepository<DitibPlace, Long>
 {
+    List<DitibPlace> findByKey(@Param("key") String key);
+
     List<DitibPlace> findByName(@Param("name") String name);
 }

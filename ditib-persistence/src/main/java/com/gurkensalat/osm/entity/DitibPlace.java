@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table(name = "PLACES")
+@Table(name = "DITIB_PLACES")
 public class DitibPlace extends AbstractPersistable<Long>
 {
     @Version
@@ -21,16 +21,24 @@ public class DitibPlace extends AbstractPersistable<Long>
     @Column(name = "LON")
     private double lon;
 
-    @Column(name = "NAME", length = 40)
+    @Column(name = "KEY", length = 80)
+    private String key;
+
+    @Column(name = "NAME", length = 80)
     private String name;
 
     protected DitibPlace()
     {
     }
 
-    public DitibPlace(String name)
+    public DitibPlace(String key)
     {
-        this.name = name;
+        this.key = key;
+    }
+
+    public String getKey()
+    {
+        return key;
     }
 
     public double getLat()
@@ -51,6 +59,11 @@ public class DitibPlace extends AbstractPersistable<Long>
     public Integer getVersion()
     {
         return version;
+    }
+
+    public void setKey(String key)
+    {
+        this.key = key;
     }
 
     public void setLat(double lat)
