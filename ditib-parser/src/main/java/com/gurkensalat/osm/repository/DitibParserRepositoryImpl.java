@@ -46,7 +46,7 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
                     LOGGER.debug("-------------------------------------------------------");
                     LOGGER.debug("Found: {}, {}", hitNumber++, element);
 
-                    Elements rows = selection.select("tbody > tr");
+                    Elements rows = element.select("tbody > tr");
                     if (isNotEmpty(rows))
                     {
                         DitibParsedPlace place = new DitibParsedPlace();
@@ -203,24 +203,22 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
                 closeQuietly(fos);
             }
 
-
             Elements selection = document.select(CSS_PATH);
             LOGGER.debug("Found {} matching elements", selection.size());
-
 
             int hitNumber = 0;
             for (Element element : selection)
             {
-                File output2 = new File(target, "parsed-" + hitNumber + "-" + resourceFile.getName());
-                FileOutputStream fos2 = new FileOutputStream(output2);
+                output = new File(target, "parsed-" + hitNumber + "-" + resourceFile.getName());
+                fos = new FileOutputStream(output);
                 try
                 {
                     pretty = element.toString();
-                    fos2.write(pretty.getBytes());
+                    fos.write(pretty.getBytes());
                 }
                 finally
                 {
-                    closeQuietly(fos2);
+                    closeQuietly(fos);
                 }
                 hitNumber++;
             }

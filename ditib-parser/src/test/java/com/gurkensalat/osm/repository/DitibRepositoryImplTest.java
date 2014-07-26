@@ -52,6 +52,13 @@ public class DitibRepositoryImplTest
 
         assertNotNull(result);
         assertEquals(3, result.size());
+
+        DitibParsedPlace place = result.get(0);
+        assertEquals("KONZ", place.getDitibCode());
+        place = result.get(1);
+        assertEquals("KORNWESTHEIM", place.getDitibCode());
+        place = result.get(2);
+        assertEquals("M&Uuml;NCHEN-Untersendling", place.getDitibCode());
     }
 
     @Test
