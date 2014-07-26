@@ -21,10 +21,10 @@ public class DitibPlace extends AbstractPersistable<Long>
     @Column(name = "LON")
     private double lon;
 
-    @Column(name = "KEY", length = 80)
+    @Column(name = "D_KEY", length = 80)
     private String key;
 
-    @Column(name = "CODE", length = 80)
+    @Column(name = "D_CODE", length = 80)
     private String ditibCode;
 
     @Column(name = "NAME", length = 80)
