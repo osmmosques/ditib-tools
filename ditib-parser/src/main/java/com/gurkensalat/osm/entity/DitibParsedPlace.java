@@ -1,6 +1,6 @@
 package com.gurkensalat.osm.entity;
 
-public class DitibPlace
+public class DitibParsedPlace
 {
     private String ditibCode;
 

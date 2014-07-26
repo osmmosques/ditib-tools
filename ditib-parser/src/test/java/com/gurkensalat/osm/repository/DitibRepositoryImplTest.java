@@ -1,6 +1,6 @@
 package com.gurkensalat.osm.repository;
 
-import com.gurkensalat.osm.entity.DitibPlace;
+import com.gurkensalat.osm.entity.DitibParsedPlace;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
@@ -15,13 +15,13 @@ import static org.junit.Assert.assertNotSame;
 
 public class DitibRepositoryImplTest
 {
-    DitibRepositoryImpl testable;
+    DitibParserRepositoryImpl testable;
 
     @Before
     public void setUp()
     {
         MockitoAnnotations.initMocks(this);
-        testable = new DitibRepositoryImpl();
+        testable = new DitibParserRepositoryImpl();
     }
 
     @Test
@@ -29,12 +29,12 @@ public class DitibRepositoryImplTest
     {
         File file = new File("src/test/resources/ditib-germering.html");
 
-        List<DitibPlace> result = testable.parse(file);
+        List<DitibParsedPlace> result = testable.parse(file);
 
         assertNotNull(result);
         assertEquals(1, result.size());
 
-        DitibPlace place = result.get(0);
+        DitibParsedPlace place = result.get(0);
         assertNotNull(place);
         assertEquals("GERMERING", place.getDitibCode());
         assertNotNull(place.getName());

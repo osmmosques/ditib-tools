@@ -1,6 +1,6 @@
 package com.gurkensalat.osm.repository;
 
-import com.gurkensalat.osm.entity.DitibPlace;
+import com.gurkensalat.osm.entity.DitibParsedPlace;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -21,15 +21,15 @@ import static org.apache.commons.collections4.ListUtils.emptyIfNull;
 import static org.apache.commons.io.IOUtils.closeQuietly;
 
 @Repository
-public class DitibRepositoryImpl implements DitibRepository
+public class DitibParserRepositoryImpl implements DitibParserRepository
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DitibRepositoryImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DitibParserRepositoryImpl.class);
 
     private final String CSS_PATH = "td.body_text2";
 
-    public List<DitibPlace> parse(File resourceFile)
+    public List<DitibParsedPlace> parse(File resourceFile)
     {
-        List<DitibPlace> result = new ArrayList<DitibPlace>();
+        List<DitibParsedPlace> result = new ArrayList<DitibParsedPlace>();
 
         try
         {
@@ -49,7 +49,7 @@ public class DitibRepositoryImpl implements DitibRepository
                     Elements rows = selection.select("tbody > tr");
                     if (isNotEmpty(rows))
                     {
-                        DitibPlace place = new DitibPlace();
+                        DitibParsedPlace place = new DitibParsedPlace();
                         place = extractPlaceCode(safeGetElement(rows, 0), place);
                         place = extractPlaceName(safeGetElement(rows, 1), place);
                         place = extractPhoneNumber(safeGetElement(rows, 1), place);
@@ -70,7 +70,7 @@ public class DitibRepositoryImpl implements DitibRepository
         return result;
     }
 
-    protected DitibPlace extractPlaceCode(Element block, DitibPlace place)
+    protected DitibParsedPlace extractPlaceCode(Element block, DitibParsedPlace place)
     {
         LOGGER.debug("extractPlaceCode()");
         LOGGER.debug("-------------------------------------------------------");
@@ -92,7 +92,7 @@ public class DitibRepositoryImpl implements DitibRepository
         return place;
     }
 
-    protected DitibPlace extractPlaceName(Element block, DitibPlace place)
+    protected DitibParsedPlace extractPlaceName(Element block, DitibParsedPlace place)
     {
         LOGGER.debug("extractPlaceName()");
         LOGGER.debug("-------------------------------------------------------");
@@ -105,7 +105,7 @@ public class DitibRepositoryImpl implements DitibRepository
         return place;
     }
 
-    protected DitibPlace extractPhoneNumber(Element block, DitibPlace place)
+    protected DitibParsedPlace extractPhoneNumber(Element block, DitibParsedPlace place)
     {
         LOGGER.debug("extractPhoneNumber()");
         LOGGER.debug("-------------------------------------------------------");
@@ -119,7 +119,7 @@ public class DitibRepositoryImpl implements DitibRepository
         return place;
     }
 
-    protected DitibPlace extractFoo2(Element block, DitibPlace place)
+    protected DitibParsedPlace extractFoo2(Element block, DitibParsedPlace place)
     {
         LOGGER.debug("-------------------------------------------------------");
         LOGGER.debug("extractFoo2()");
@@ -129,7 +129,7 @@ public class DitibRepositoryImpl implements DitibRepository
         return place;
     }
 
-    protected DitibPlace extractFoo3(Element block, DitibPlace place)
+    protected DitibParsedPlace extractFoo3(Element block, DitibParsedPlace place)
     {
         LOGGER.debug("extractFoo3()");
         LOGGER.debug("-------------------------------------------------------");
@@ -139,7 +139,7 @@ public class DitibRepositoryImpl implements DitibRepository
         return place;
     }
 
-    protected DitibPlace extractFoo4(Element block, DitibPlace place)
+    protected DitibParsedPlace extractFoo4(Element block, DitibParsedPlace place)
     {
         LOGGER.debug("extractFoo4()");
         LOGGER.debug("-------------------------------------------------------");
@@ -231,9 +231,9 @@ public class DitibRepositoryImpl implements DitibRepository
         }
     }
 
-    private List<DitibPlace> extractData(Element data)
+    private List<DitibParsedPlace> extractData(Element data)
     {
-        List<DitibPlace> result = new ArrayList<DitibPlace>();
+        List<DitibParsedPlace> result = new ArrayList<DitibParsedPlace>();
 
         LOGGER.debug("About to extract data from {}", data.toString());
 
