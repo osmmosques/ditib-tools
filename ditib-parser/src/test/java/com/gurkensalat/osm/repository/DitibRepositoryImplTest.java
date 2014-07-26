@@ -44,9 +44,28 @@ public class DitibRepositoryImplTest
     }
 
     @Test
+    public void parseThreePlacesData() throws IOException
+    {
+        File file = new File("src/test/resources/ditib-three-places.html");
+
+        List<DitibParsedPlace> result = testable.parse(file);
+
+        assertNotNull(result);
+        assertEquals(3, result.size());
+    }
+
+    @Test
     public void prettifyGermeringData() throws IOException
     {
         File file = new File("src/test/resources/ditib-germering.html");
+
+        testable.prettify(new File("target"), file);
+    }
+
+    @Test
+    public void prettifyThreePlacesData() throws IOException
+    {
+        File file = new File("src/test/resources/ditib-three-places.html");
 
         testable.prettify(new File("target"), file);
     }
