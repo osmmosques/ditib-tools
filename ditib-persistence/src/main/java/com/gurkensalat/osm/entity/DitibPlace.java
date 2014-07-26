@@ -24,6 +24,9 @@ public class DitibPlace extends AbstractPersistable<Long>
     @Column(name = "KEY", length = 80)
     private String key;
 
+    @Column(name = "CODE", length = 80)
+    private String ditibCode;
+
     @Column(name = "NAME", length = 80)
     private String name;
 
@@ -34,6 +37,11 @@ public class DitibPlace extends AbstractPersistable<Long>
     public DitibPlace(String key)
     {
         this.key = key;
+    }
+
+    public String getDitibCode()
+    {
+        return ditibCode;
     }
 
     public String getKey()
@@ -59,6 +67,11 @@ public class DitibPlace extends AbstractPersistable<Long>
     public Integer getVersion()
     {
         return version;
+    }
+
+    public void setDitibCode(String ditibCode)
+    {
+        this.ditibCode = ditibCode;
     }
 
     public void setKey(String key)
