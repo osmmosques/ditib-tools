@@ -50,12 +50,23 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
                     if (isNotEmpty(rows))
                     {
                         DitibParsedPlace place = new DitibParsedPlace();
-                        place = extractPlaceCode(safeGetElement(rows, 0), place);
-                        place = extractPlaceName(safeGetElement(rows, 1), place);
-                        place = extractPhoneNumber(safeGetElement(rows, 1), place);
-                        place = extractFoo2(safeGetElement(rows, 2), place);
-                        place = extractFoo3(safeGetElement(rows, 3), place);
-                        place = extractFoo4(safeGetElement(rows, 4), place);
+
+                        Element row0 = safeGetElement(rows, 0);
+                        place = extractPlaceCode(row0, place);
+
+                        Element row1 = safeGetElement(rows, 1);
+                        place = extractPlaceName(row1, place);
+                        place = extractPhoneNumber(row1, place);
+
+                        Element row2 = safeGetElement(rows, 2);
+                        place = extractPlaceStreetNameAndNumber(row2, place);
+                        place = extractFaxNumber(row2, place);
+
+                        Element row3 = safeGetElement(rows, 3);
+                        place = extractPostcodeAndCity(row3, place);
+
+                        Element row4 = safeGetElement(rows, 4);
+                        place = extractFoo4(row4, place);
                         result.add(place);
                     }
                 }
@@ -112,29 +123,59 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
         LOGGER.debug("{}", block.toString());
         LOGGER.debug("-------------------------------------------------------");
 
-        String data = block.toString();
-        // WTF parser, should be 5?
+        int elementNumber = 0;
+        for (Element element : block.getAllElements())
+        {
+            String data = element.toString();
+            LOGGER.debug("  {} - '{}'", elementNumber++, data);
+        }
+
         place.setPhone(safeGetText(block, 6));
 
         return place;
     }
 
-    protected DitibParsedPlace extractFoo2(Element block, DitibParsedPlace place)
+    protected DitibParsedPlace extractPlaceStreetNameAndNumber(Element block, DitibParsedPlace place)
     {
+        LOGGER.debug("extractPlaceStreetNameAndNumber()");
         LOGGER.debug("-------------------------------------------------------");
-        LOGGER.debug("extractFoo2()");
         LOGGER.debug("{}", block.toString());
         LOGGER.debug("-------------------------------------------------------");
+
+        place.setStreet(safeGetText(block, 5));
+        place.setStreetNumber("");
 
         return place;
     }
 
-    protected DitibParsedPlace extractFoo3(Element block, DitibParsedPlace place)
+    protected DitibParsedPlace extractFaxNumber(Element block, DitibParsedPlace place)
     {
-        LOGGER.debug("extractFoo3()");
+        LOGGER.debug("extractFaxNumber()");
         LOGGER.debug("-------------------------------------------------------");
         LOGGER.debug("{}", block.toString());
         LOGGER.debug("-------------------------------------------------------");
+
+        place.setFax(safeGetText(block, 9));
+
+        return place;
+    }
+
+    protected DitibParsedPlace extractPostcodeAndCity(Element block, DitibParsedPlace place)
+    {
+        LOGGER.debug("extractPostcodeAndCity()");
+        LOGGER.debug("-------------------------------------------------------");
+        LOGGER.debug("{}", block.toString());
+        LOGGER.debug("-------------------------------------------------------");
+
+        place.setPostcode("");
+        place.setCity(safeGetText(block, 2));
+
+        int spaceIndex = place.getCity().indexOf(" ");
+        if (spaceIndex > -1)
+        {
+            place.setPostcode(place.getCity().substring(0, spaceIndex));
+            place.setCity(place.getCity().substring(spaceIndex + 1));
+        }
 
         return place;
     }
