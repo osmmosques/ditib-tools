@@ -8,7 +8,7 @@ public class DitibParsedPlace
 
     private String street;
 
-    private String number;
+    private String streetNumber;
 
     private String postcode;
 
@@ -52,14 +52,14 @@ public class DitibParsedPlace
         this.street = street;
     }
 
-    public String getNumber()
+    public String getStreetNumber()
     {
-        return number;
+        return streetNumber;
     }
 
-    public void setNumber(String number)
+    public void setStreetNumber(String streetNumber)
     {
-        this.number = number;
+        this.streetNumber = streetNumber;
     }
 
     public String getPostcode()
