@@ -206,10 +206,17 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
             Elements selection = document.select(CSS_PATH);
             LOGGER.debug("Found {} matching elements", selection.size());
 
+            String nameBase = resourceFile.getName();
+            String nameSuffix = ".html";
+            if (nameBase.lastIndexOf(".html") > -1)
+            {
+                nameBase = nameBase.substring(0, nameBase.lastIndexOf(".html"));
+            }
+
             int hitNumber = 0;
             for (Element element : selection)
             {
-                output = new File(target, "parsed-" + hitNumber + "-" + resourceFile.getName());
+                output = new File(target, "parsed-" + nameBase + "-" + hitNumber + nameSuffix);
                 fos = new FileOutputStream(output);
                 try
                 {
