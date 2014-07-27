@@ -30,6 +30,24 @@ public class DitibPlace extends AbstractPersistable<Long>
     @Column(name = "NAME", length = 80)
     private String name;
 
+    @Column(name = "STREET", length = 80)
+    private String street;
+
+    @Column(name = "STREET_NUMBER", length = 10)
+    private String streetNumber;
+
+    @Column(name = "POSTCODE", length = 10)
+    private String postcode;
+
+    @Column(name = "CITY", length = 80)
+    private String city;
+
+    @Column(name = "PHONE", length = 20)
+    private String phone;
+
+    @Column(name = "FAX", length = 20)
+    private String fax;
+
     protected DitibPlace()
     {
     }
@@ -39,34 +57,69 @@ public class DitibPlace extends AbstractPersistable<Long>
         this.key = key;
     }
 
+    public String getStreet()
+    {
+        return street;
+    }
+
+    public void setStreet(String street)
+    {
+        this.street = street;
+    }
+
+    public String getStreetNumber()
+    {
+        return streetNumber;
+    }
+
+    public void setStreetNumber(String streetNumber)
+    {
+        this.streetNumber = streetNumber;
+    }
+
+    public String getPostcode()
+    {
+        return postcode;
+    }
+
+    public void setPostcode(String postcode)
+    {
+        this.postcode = postcode;
+    }
+
+    public String getCity()
+    {
+        return city;
+    }
+
+    public void setCity(String city)
+    {
+        this.city = city;
+    }
+
+    public String getPhone()
+    {
+        return phone;
+    }
+
+    public void setPhone(String phone)
+    {
+        this.phone = phone;
+    }
+
+    public String getFax()
+    {
+        return fax;
+    }
+
+    public void setFax(String fax)
+    {
+        this.fax = fax;
+    }
+
     public String getDitibCode()
     {
         return ditibCode;
-    }
-
-    public String getKey()
-    {
-        return key;
-    }
-
-    public double getLat()
-    {
-        return lat;
-    }
-
-    public double getLon()
-    {
-        return lon;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public Integer getVersion()
-    {
-        return version;
     }
 
     public void setDitibCode(String ditibCode)
@@ -74,9 +127,19 @@ public class DitibPlace extends AbstractPersistable<Long>
         this.ditibCode = ditibCode;
     }
 
+    public String getKey()
+    {
+        return key;
+    }
+
     public void setKey(String key)
     {
         this.key = key;
+    }
+
+    public double getLat()
+    {
+        return lat;
     }
 
     public void setLat(double lat)
@@ -84,14 +147,29 @@ public class DitibPlace extends AbstractPersistable<Long>
         this.lat = lat;
     }
 
+    public double getLon()
+    {
+        return lon;
+    }
+
     public void setLon(double lon)
     {
         this.lon = lon;
     }
 
+    public String getName()
+    {
+        return name;
+    }
+
     public void setName(String name)
     {
         this.name = name;
+    }
+
+    public Integer getVersion()
+    {
+        return version;
     }
 
     public void setVersion(Integer version)
