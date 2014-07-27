@@ -66,6 +66,8 @@ for country in germany
 do
     :
 
+    mkdir -p ${STORAGE}/${country}/${MONTH}/${DAY}
+
     curl \
 	"http://localhost:8888/osm-mosques-rest/ditib/import" \
 	-o ${STORAGE}/${country}/${MONTH}/${DAY}/curl-ditib-places-import.txt \
