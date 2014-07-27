@@ -213,10 +213,10 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
                 nameBase = nameBase.substring(0, nameBase.lastIndexOf(".html"));
             }
 
-            int hitNumber = 0;
+            int hitNumber = 10000;
             for (Element element : selection)
             {
-                output = new File(target, "parsed-" + nameBase + "-" + hitNumber + nameSuffix);
+                output = new File(target, "parsed-" + nameBase + "-" + Integer.toString(hitNumber).substring(1) + nameSuffix);
                 fos = new FileOutputStream(output);
                 try
                 {
