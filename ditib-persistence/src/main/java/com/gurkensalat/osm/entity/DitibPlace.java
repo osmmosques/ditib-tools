@@ -42,10 +42,10 @@ public class DitibPlace extends AbstractPersistable<Long>
     @Column(name = "CITY", length = 80)
     private String city;
 
-    @Column(name = "PHONE", length = 20)
+    @Column(name = "PHONE", length = 80)
     private String phone;
 
-    @Column(name = "FAX", length = 20)
+    @Column(name = "FAX", length = 80)
     private String fax;
 
     protected DitibPlace()
