@@ -84,4 +84,9 @@ do
 done
 
 db=osm_mosques
-mysqldump --skip-extended-insert ${db} > ${STORAGE}/${SOURCE}-${country}/${MONTH}/${DAY}/${db}-dump.sql
+
+mysqldump --skip-extended-insert ${db} \
+    > ${STORAGE}/${SOURCE}-${country}/${MONTH}/${DAY}/${db}-dump.sql
+
+mysql ${db} -e "select d_code, d_key, postcode, city, street, street_number, phone, fax from ditib_places order by d_code, name limit 9999;" \
+    > ${STORAGE}/${SOURCE}-${country}/${MONTH}/${DAY}/${db}-ditib_places.sql
