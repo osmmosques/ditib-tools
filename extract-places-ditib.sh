@@ -82,3 +82,6 @@ do
 
     cp -ar ${WEBDATA}/${SOURCE}-${country}-split-* ${STORAGE}/${SOURCE}-${country}/${MONTH}/${DAY} 
 done
+
+db=osm_mosques
+mysqldump --skip-extended-insert ${db} > ${STORAGE}/${SOURCE}-${country}/${MONTH}/${DAY}/${db}-dump.sql
