@@ -1,5 +1,6 @@
 package com.gurkensalat.osm.entity;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Column;
@@ -175,5 +176,15 @@ public class DitibPlace extends AbstractPersistable<Long>
     public void setVersion(Integer version)
     {
         this.version = version;
+    }
+
+    public String toString()
+    {
+        return new ToStringBuilder(this).
+                append(ditibCode).append(name).
+                append(street).append(streetNumber).
+                append(postcode).append(city).
+                append(phone).append(fax).
+                toString();
     }
 }
