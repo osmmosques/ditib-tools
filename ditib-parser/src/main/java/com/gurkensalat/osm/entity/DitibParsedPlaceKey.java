@@ -12,7 +12,8 @@ public class DitibParsedPlaceKey
     {
         this.key = "";
 
-        this.key = Integer.toString(ditibParsedPlace.getStreet().hashCode());
+        this.key = Integer.toString(ditibParsedPlace.getStreet().hashCode() + 1000000000);
+
         this.key = this.key.substring(this.key.length() - 2);
 
         this.key = this.key + "-";

@@ -24,7 +24,7 @@ public class DitibParsedPlaceKeyTest
         testable.setPostcode("82110");
         testable.setStreet("Münchener Str. 13a");
         DitibParsedPlaceKey key = new DitibParsedPlaceKey(testable);
-        assertEquals("58-82110", key.getKey());
+        assertEquals("42-82110", key.getKey());
     }
 
     @Test
