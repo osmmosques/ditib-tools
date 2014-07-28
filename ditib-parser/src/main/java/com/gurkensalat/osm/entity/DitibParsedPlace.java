@@ -1,5 +1,7 @@
 package com.gurkensalat.osm.entity;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public class DitibParsedPlace
 {
     private String ditibCode;
@@ -120,5 +122,15 @@ public class DitibParsedPlace
     public void setEmail(String email)
     {
         this.email = email;
+    }
+
+    public String toString()
+    {
+        return new ToStringBuilder(this).
+                append(ditibCode).append(name).
+                append(street).append(streetNumber).
+                append(postcode).append(city).
+                append(phone).append(fax).
+                toString();
     }
 }
