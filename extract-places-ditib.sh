@@ -85,8 +85,9 @@ done
 
 db=osm_mosques
 
-mysqldump --skip-extended-insert ${db} \
+mysqldump -uroot -p$(cat ${HOME}/.my.pass) --skip-extended-insert ${db} \
     > ${STORAGE}/${SOURCE}-${country}/${MONTH}/${DAY}/${db}-dump.sql
 
-mysql ${db} -e "select d_code, d_key, postcode, city, street, street_number, phone, fax from ditib_places order by d_code, name limit 9999;" \
+mysql -uroot -p$(cat ${HOME}/.my.pass) ${db} \
+    -e "select d_code, d_key, postcode, city, street, street_number, phone, fax from ditib_places order by d_code, name limit 9999;" \
     > ${STORAGE}/${SOURCE}-${country}/${MONTH}/${DAY}/${db}-ditib_places.sql
