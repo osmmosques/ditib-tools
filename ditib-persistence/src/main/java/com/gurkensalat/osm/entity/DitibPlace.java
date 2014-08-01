@@ -34,17 +34,7 @@ public class DitibPlace extends AbstractPersistable<Long>
     @Column(name = "NAME", length = 80)
     private String name;
 
-    @Column(name = "STREET", length = 80)
-    private String street;
-
-    @Column(name = "STREET_NUMBER", length = 10)
-    private String streetNumber;
-
-    @Column(name = "POSTCODE", length = 10)
-    private String postcode;
-
-    @Column(name = "CITY", length = 80)
-    private String city;
+    private Address address;
 
     @Column(name = "PHONE", length = 80)
     private String phone;
@@ -69,46 +59,6 @@ public class DitibPlace extends AbstractPersistable<Long>
     public void setScore(double score)
     {
         this.score = score;
-    }
-
-    public String getStreet()
-    {
-        return street;
-    }
-
-    public void setStreet(String street)
-    {
-        this.street = street;
-    }
-
-    public String getStreetNumber()
-    {
-        return streetNumber;
-    }
-
-    public void setStreetNumber(String streetNumber)
-    {
-        this.streetNumber = streetNumber;
-    }
-
-    public String getPostcode()
-    {
-        return postcode;
-    }
-
-    public void setPostcode(String postcode)
-    {
-        this.postcode = postcode;
-    }
-
-    public String getCity()
-    {
-        return city;
-    }
-
-    public void setCity(String city)
-    {
-        this.city = city;
     }
 
     public String getPhone()
@@ -181,6 +131,16 @@ public class DitibPlace extends AbstractPersistable<Long>
         this.name = name;
     }
 
+    public Address getAddress()
+    {
+        return this.address;
+    }
+
+    public void setAddress(Address address)
+    {
+        this.address = address;
+    }
+
     public Integer getVersion()
     {
         return version;
@@ -194,10 +154,11 @@ public class DitibPlace extends AbstractPersistable<Long>
     public String toString()
     {
         return new ToStringBuilder(this).
-                append(ditibCode).append(name).
-                append(street).append(streetNumber).
-                append(postcode).append(city).
-                append(phone).append(fax).
+                append("ditibCode", ditibCode).
+                append("name", name).
+                append("address", address).
+                append("phone", phone).
+                append("fax", fax).
                 toString();
     }
 }

@@ -98,6 +98,11 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>com.gurkensalat.osm</groupId>
+            <artifactId>osm-persistence</artifactId>
+        </dependency>
+
         <!-- DI, ORM -->
         <dependency>
             <groupId>org.springframework</groupId>
