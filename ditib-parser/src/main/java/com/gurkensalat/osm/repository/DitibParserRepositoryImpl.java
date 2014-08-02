@@ -20,6 +20,7 @@ import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.collections4.ListUtils.emptyIfNull;
 import static org.apache.commons.io.IOUtils.closeQuietly;
 import static org.apache.commons.lang3.StringUtils.indexOfAny;
+import static org.apache.commons.lang3.StringUtils.stripToEmpty;
 
 @Repository
 public class DitibParserRepositoryImpl implements DitibParserRepository
@@ -68,6 +69,18 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
 
                         Element row4 = safeGetElement(rows, 4);
                         place = extractFoo4(row4, place);
+
+                        place.setDitibCode(stripToEmpty(place.getDitibCode()));
+                        place.setName(stripToEmpty(place.getName()));
+
+                        place.setStreet(stripToEmpty(place.getStreet()));
+                        place.setStreetNumber(stripToEmpty(place.getStreetNumber()));
+                        place.setPostcode(stripToEmpty(place.getPostcode()));
+                        place.setCity(stripToEmpty(place.getCity()));
+
+                        place.setPhone(stripToEmpty(place.getPhone()));
+                        place.setFax(stripToEmpty(place.getFax()));
+
                         result.add(place);
                     }
                 }
@@ -158,9 +171,6 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
             place.setStreet(streetAndNumber);
             place.setStreetNumber("");
         }
-
-        place.setStreet(place.getStreet().trim());
-        place.setStreetNumber(place.getStreetNumber().trim());
 
         return place;
     }
