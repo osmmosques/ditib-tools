@@ -1,6 +1,7 @@
 package com.gurkensalat.osm.repository;
 
 import com.gurkensalat.osm.entity.DitibParsedPlace;
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -20,6 +21,8 @@ import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.collections4.ListUtils.emptyIfNull;
 import static org.apache.commons.io.IOUtils.closeQuietly;
 import static org.apache.commons.lang3.StringUtils.indexOfAny;
+import static org.apache.commons.lang3.StringUtils.removeStart;
+import static org.apache.commons.lang3.StringUtils.replaceOnce;
 import static org.apache.commons.lang3.StringUtils.stripToEmpty;
 
 @Repository
@@ -144,7 +147,16 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
             LOGGER.debug("  {} - '{}'", elementNumber++, data);
         }
 
-        place.setPhone(safeGetText(block, 6));
+        String phone = safeGetText(block, 6);
+        if (phone.startsWith("0"))
+        {
+            phone = replaceOnce(phone, "0", "+49 / ");
+        }
+
+
+        phone = StringUtils.replace(phone, " / ", "/");
+
+        place.setPhone(phone);
 
         return place;
     }
@@ -182,7 +194,23 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
         LOGGER.debug("{}", block.toString());
         LOGGER.debug("-------------------------------------------------------");
 
-        place.setFax(safeGetText(block, 9));
+        String fax = safeGetText(block, 9);
+
+        fax = removeStart(fax, "tel.");
+
+        if (fax.startsWith("212"))
+        {
+            fax = replaceOnce(fax, "212", "0212");
+        }
+
+        if (fax.startsWith("0"))
+        {
+            fax = replaceOnce(fax, "0", "+49 / ");
+        }
+
+        fax = StringUtils.replace(fax, " / ", "/");
+
+        place.setFax(fax);
 
         return place;
     }
