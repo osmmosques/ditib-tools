@@ -80,7 +80,7 @@ do
 	> ${STORAGE}/${country}/${MONTH}/${DAY}/curl-ditib-places-data.out \
 	2> ${STORAGE}/${country}/${MONTH}/${DAY}/curl-ditib-places-data.err
 
-    cp -ar ${WEBDATA}/${SOURCE}-${country}-split-* ${STORAGE}/${SOURCE}-${country}/${MONTH}/${DAY} 
+    # cp -ar ${WEBDATA}/${SOURCE}-${country}-split-* ${STORAGE}/${SOURCE}-${country}/${MONTH}/${DAY}
 done
 
 db=osm_mosques
