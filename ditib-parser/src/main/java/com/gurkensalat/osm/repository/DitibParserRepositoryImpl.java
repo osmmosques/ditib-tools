@@ -19,6 +19,7 @@ import java.util.List;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.collections4.ListUtils.emptyIfNull;
 import static org.apache.commons.io.IOUtils.closeQuietly;
+import static org.apache.commons.lang3.StringUtils.indexOfAny;
 
 @Repository
 public class DitibParserRepositoryImpl implements DitibParserRepository
@@ -142,8 +143,24 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
         LOGGER.debug("{}", block.toString());
         LOGGER.debug("-------------------------------------------------------");
 
-        place.setStreet(safeGetText(block, 5));
-        place.setStreetNumber("");
+        String streetAndNumber = safeGetText(block, 5);
+
+        streetAndNumber = streetAndNumber.replaceAll("\\.", ". ");
+        int i = indexOfAny(streetAndNumber, '0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
+
+        if (i > -1)
+        {
+            place.setStreet(streetAndNumber.substring(0, i - 1));
+            place.setStreetNumber(streetAndNumber.substring(i));
+        }
+        else
+        {
+            place.setStreet(streetAndNumber);
+            place.setStreetNumber("");
+        }
+
+        place.setStreet(place.getStreet().trim());
+        place.setStreetNumber(place.getStreetNumber().trim());
 
         return place;
     }

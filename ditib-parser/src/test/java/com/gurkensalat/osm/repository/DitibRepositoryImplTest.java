@@ -39,8 +39,8 @@ public class DitibRepositoryImplTest
         assertEquals("ditibCode mismatch", "GERMERING", place.getDitibCode());
         assertEquals("Name mismatch", "Türkisch Islamische Kultur Verein e.V.", place.getName());
         assertEquals("Phone mismatch", "089 / 37914346", place.getPhone());
-        assertEquals("Street name mismatch", "Münchener Str. 13a", place.getStreet());
-        assertEquals("Street number mismatch", "", place.getStreetNumber());
+        assertEquals("Street name mismatch", "Münchener Str.", place.getStreet());
+        assertEquals("Street number mismatch", "13a", place.getStreetNumber());
         assertEquals("Fax mismatch", "089 / 37914346", place.getFax());
         assertEquals("PostCode mismatch", "82110", place.getPostcode());
         assertEquals("City mismatch", "GERMERING", place.getCity());
@@ -60,8 +60,8 @@ public class DitibRepositoryImplTest
         assertEquals("ditibCode 1 mismatch", "KONZ", place.getDitibCode());
         assertEquals("Name 1 mismatch", "DITIB Türkisch Islamische Kultur Verein e.V.", place.getName());
         assertEquals("Phone 1 mismatch", "06501 / 2914", place.getPhone());
-        assertEquals("Street 1 name mismatch", "Dammstr.2", place.getStreet());
-        assertEquals("Street 1 number mismatch", "", place.getStreetNumber());
+        assertEquals("Street 1 name mismatch", "Dammstr.", place.getStreet());
+        assertEquals("Street 1 number mismatch", "2", place.getStreetNumber());
         assertEquals("Fax 1 mismatch", "06501 / 2293", place.getFax());
         assertEquals("PostCode 1 mismatch", "54329", place.getPostcode());
         assertEquals("City 1 mismatch", "KONZ", place.getCity());
@@ -70,8 +70,8 @@ public class DitibRepositoryImplTest
         assertEquals("ditibCode 2 mismatch", "KORNWESTHEIM", place.getDitibCode());
         assertEquals("Name 2 mismatch", "DITIB Türkisch Islamische Kultur Verein e.V.", place.getName());
         assertEquals("Phone 2 mismatch", "0711 / 8821471", place.getPhone());
-        assertEquals("Street 2 name mismatch", "Sigelstr.44", place.getStreet());
-        assertEquals("Street 2 number mismatch", "", place.getStreetNumber());
+        assertEquals("Street 2 name mismatch", "Sigelstr.", place.getStreet());
+        assertEquals("Street 2 number mismatch", "44", place.getStreetNumber());
         assertEquals("Fax 2 mismatch", "0711 / 8821472", place.getFax());
         assertEquals("PostCode 2 mismatch", "70806", place.getPostcode());
         assertEquals("City 2 mismatch", "KORNWESTHEIM", place.getCity());
@@ -80,8 +80,8 @@ public class DitibRepositoryImplTest
         assertEquals("ditibCode 3 mismatch", "M&Uuml;NCHEN-Untersendling", place.getDitibCode());
         assertEquals("Name 3 mismatch", "DITIM-Türkisch Islamischen Kultur Zentrum e.V.", place.getName());
         assertEquals("Phone 3 mismatch", "089 / 720 59 342", place.getPhone());
-        assertEquals("Street 3 name mismatch", "Schanzenbachstr. 1", place.getStreet());
-        assertEquals("Street 3 number mismatch", "", place.getStreetNumber());
+        assertEquals("Street 3 name mismatch", "Schanzenbachstr.", place.getStreet());
+        assertEquals("Street 3 number mismatch", "1", place.getStreetNumber());
         assertEquals("Fax 3 mismatch", "089 / 720 69 838", place.getFax());
         assertEquals("PostCode 2 mismatch", "81371", place.getPostcode());
         assertEquals("City 3 mismatch", "MÜNCHEN-Untersendling", place.getCity());
