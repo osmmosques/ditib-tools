@@ -85,9 +85,13 @@ done
 
 db=osm_mosques
 
+DB_DIR=${STORAGE}/database/${MONTH}/${DAY}
+
+mkdir -p ${DB_DIR}
+
 mysqldump -uroot -p$(cat ${HOME}/.my.pass) --skip-extended-insert ${db} \
-    > ${STORAGE}/${SOURCE}-${country}/${MONTH}/${DAY}/${db}-dump.sql
+    > ${DB_DIR}/${db}-dump.sql
 
 mysql -uroot -p$(cat ${HOME}/.my.pass) ${db} \
     -e "select d_code, d_key, addr_postcode, addr_city, addr_street, addr_housenumber, addr_state, phone, fax from ditib_places order by d_code, name limit 9999;" \
-    > ${STORAGE}/${SOURCE}-${country}/${MONTH}/${DAY}/${db}-ditib_places.sql
+    > ${DB_DIR}/${db}-ditib_places.sql
