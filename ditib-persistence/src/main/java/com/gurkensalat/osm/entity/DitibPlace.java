@@ -16,6 +16,9 @@ public class DitibPlace extends AbstractPersistable<Long>
     @Column(name = "VERSION")
     private Integer version;
 
+    @Column(name = "VALID")
+    private boolean valid;
+
     @Column(name = "SCORE")
     private double score;
 
@@ -59,6 +62,16 @@ public class DitibPlace extends AbstractPersistable<Long>
     public void setScore(double score)
     {
         this.score = score;
+    }
+
+    public boolean isValid()
+    {
+        return valid;
+    }
+
+    public void setValid(boolean valid)
+    {
+        this.valid = valid;
     }
 
     public String getPhone()
