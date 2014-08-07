@@ -93,5 +93,5 @@ mysqldump -uroot -p$(cat ${HOME}/.my.pass) --skip-extended-insert ${db} \
     > ${DB_DIR}/${db}-dump.sql
 
 mysql -uroot -p$(cat ${HOME}/.my.pass) ${db} \
-    -e "select d_code, d_key, addr_postcode, addr_city, addr_street, addr_housenumber, addr_state, phone, fax from ditib_places order by d_code, name limit 9999;" \
+    -e "select d_key, lat, lon, addr_postcode, addr_city, addr_street, addr_housenumber, addr_state, phone, fax from ditib_places order by d_key, name limit 9999;" \
     > ${DB_DIR}/${db}-ditib_places.sql
