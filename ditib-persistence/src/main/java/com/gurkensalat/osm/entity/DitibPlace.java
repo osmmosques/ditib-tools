@@ -19,9 +19,6 @@ public class DitibPlace extends AbstractPersistable<Long>
     @Column(name = "VALID")
     private boolean valid;
 
-    @Column(name = "SCORE")
-    private double score;
-
     @Column(name = "LAT")
     private double lat;
 
@@ -52,16 +49,6 @@ public class DitibPlace extends AbstractPersistable<Long>
     public DitibPlace(String key)
     {
         this.key = key;
-    }
-
-    public double getScore()
-    {
-        return score;
-    }
-
-    public void setScore(double score)
-    {
-        this.score = score;
     }
 
     public boolean isValid()
