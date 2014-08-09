@@ -45,4 +45,12 @@ public class DitibPlaceRepositoryTest
         assertFalse(place.isNew());
         assertEquals(savedPlace.getId(), new Long(1));
     }
+
+    @Test
+    public void testQueryByBbox()
+    {
+        List<DitibPlace> result = ditibPlaceRepository.findByBbox(1, 2, 3, 4);
+
+        assertNotNull(result);
+    }
 }
