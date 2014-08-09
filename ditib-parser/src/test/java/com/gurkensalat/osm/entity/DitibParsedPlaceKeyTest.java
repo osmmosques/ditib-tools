@@ -4,10 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 
-import java.io.IOException;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 public class DitibParsedPlaceKeyTest
 {
@@ -22,9 +19,10 @@ public class DitibParsedPlaceKeyTest
     {
         DitibParsedPlace testable = new DitibParsedPlace();
         testable.setPostcode("82110");
-        testable.setStreet("Münchener Str. 13a");
+        testable.setStreet("Münchener Str.");
+        testable.setStreetNumber("13a");
         DitibParsedPlaceKey key = new DitibParsedPlaceKey(testable);
-        assertEquals("42-82110", key.getKey());
+        assertEquals("82110-77-7", key.getKey());
     }
 
     @Test
@@ -32,9 +30,10 @@ public class DitibParsedPlaceKeyTest
     {
         DitibParsedPlace testable = new DitibParsedPlace();
         testable.setPostcode("54329");
-        testable.setStreet("Dammstr.2");
+        testable.setStreet("Dammstr.");
+        testable.setStreetNumber("2");
         DitibParsedPlaceKey key = new DitibParsedPlaceKey(testable);
-        assertEquals("36-54329", key.getKey());
+        assertEquals("54329-98-0", key.getKey());
     }
 
     @Test
@@ -42,9 +41,10 @@ public class DitibParsedPlaceKeyTest
     {
         DitibParsedPlace testable = new DitibParsedPlace();
         testable.setPostcode("70806");
-        testable.setStreet("Sigelstr.44");
+        testable.setStreet("Sigelstr.");
+        testable.setStreetNumber("44");
         DitibParsedPlaceKey key = new DitibParsedPlaceKey(testable);
-        assertEquals("41-70806", key.getKey());
+        assertEquals("70806-51-4", key.getKey());
     }
 
     @Test
@@ -52,8 +52,9 @@ public class DitibParsedPlaceKeyTest
     {
         DitibParsedPlace testable = new DitibParsedPlace();
         testable.setPostcode("81371");
-        testable.setStreet("Schanzenbachstr. 1");
+        testable.setStreet("Schanzenbachstr.");
+        testable.setStreetNumber("1");
         DitibParsedPlaceKey key = new DitibParsedPlaceKey(testable);
-        assertEquals("48-81371", key.getKey());
+        assertEquals("81371-91-9", key.getKey());
     }
 }
