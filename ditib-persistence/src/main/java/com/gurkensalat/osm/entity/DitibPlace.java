@@ -1,40 +1,17 @@
 package com.gurkensalat.osm.entity;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Version;
 
 @Entity
 @Table(name = "DITIB_PLACES")
-public class DitibPlace extends AbstractPersistable<Long>
+public class DitibPlace extends OsmPlaceBase
 {
-    @Version
-    @Column(name = "VERSION")
-    private Integer version;
-
-    @Column(name = "VALID")
-    private boolean valid;
-
-    @Column(name = "LAT")
-    private double lat;
-
-    @Column(name = "LON")
-    private double lon;
-
-    @Column(name = "D_KEY", length = 80)
-    private String key;
-
     @Column(name = "D_CODE", length = 80)
     private String ditibCode;
-
-    @Column(name = "NAME", length = 80)
-    private String name;
-
-    private Address address;
 
     @Column(name = "PHONE", length = 80)
     private String phone;
@@ -48,17 +25,8 @@ public class DitibPlace extends AbstractPersistable<Long>
 
     public DitibPlace(String key)
     {
-        this.key = key;
-    }
-
-    public boolean isValid()
-    {
-        return valid;
-    }
-
-    public void setValid(boolean valid)
-    {
-        this.valid = valid;
+        super();
+        this.setKey(key);
     }
 
     public String getPhone()
@@ -91,72 +59,12 @@ public class DitibPlace extends AbstractPersistable<Long>
         this.ditibCode = ditibCode;
     }
 
-    public String getKey()
-    {
-        return key;
-    }
-
-    public void setKey(String key)
-    {
-        this.key = key;
-    }
-
-    public double getLat()
-    {
-        return lat;
-    }
-
-    public void setLat(double lat)
-    {
-        this.lat = lat;
-    }
-
-    public double getLon()
-    {
-        return lon;
-    }
-
-    public void setLon(double lon)
-    {
-        this.lon = lon;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
-    public Address getAddress()
-    {
-        return this.address;
-    }
-
-    public void setAddress(Address address)
-    {
-        this.address = address;
-    }
-
-    public Integer getVersion()
-    {
-        return version;
-    }
-
-    public void setVersion(Integer version)
-    {
-        this.version = version;
-    }
-
     public String toString()
     {
         return new ToStringBuilder(this).
                 append("ditibCode", ditibCode).
-                append("name", name).
-                append("address", address).
+                append("name", getName()).
+                append("address", getAddress()).
                 append("phone", phone).
                 append("fax", fax).
                 toString();
