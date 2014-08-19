@@ -21,6 +21,8 @@ public class DitibPlace extends OsmPlaceBase
     {
         super();
         this.setKey(key);
+        this.setAddress(new Address());
+        this.setContact(new Contact());
     }
 
     public String getDitibCode()
