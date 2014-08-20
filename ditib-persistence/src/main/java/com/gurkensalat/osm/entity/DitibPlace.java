@@ -13,6 +13,9 @@ public class DitibPlace extends OsmPlaceBase
     @Column(name = "D_CODE", length = 80)
     private String ditibCode;
 
+    @Column(name = "GEOCODED")
+    private boolean geocoded;
+
     protected DitibPlace()
     {
     }
@@ -35,10 +38,21 @@ public class DitibPlace extends OsmPlaceBase
         this.ditibCode = ditibCode;
     }
 
+    public boolean isGeocoded()
+    {
+        return geocoded;
+    }
+
+    public void setGeocoded(boolean geocoded)
+    {
+        this.geocoded = geocoded;
+    }
+
     public String toString()
     {
         return new ToStringBuilder(this).
                 append("ditibCode", ditibCode).
+                append("geocoded", geocoded).
                 append("name", getName()).
                 append("address", getAddress()).
                 append("contact", getContact()).
