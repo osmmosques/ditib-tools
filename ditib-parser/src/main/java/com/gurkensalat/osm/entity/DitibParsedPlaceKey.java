@@ -26,7 +26,7 @@ public class DitibParsedPlaceKey
         String houseNumberCode = Integer.toString(ditibParsedPlace.getStreetNumber().hashCode() + 1000000000);
         houseNumberCode = houseNumberCode.substring(houseNumberCode.length() - 1);
 
-        this.key = postCode + "-" + streetCode + "-" + houseNumberCode;
+        this.key = "de-" + postCode + "-" + streetCode + "-" + houseNumberCode;
     }
 
     public String getKey()
