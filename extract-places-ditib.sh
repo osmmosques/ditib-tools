@@ -16,17 +16,17 @@ extract_data() {
 
     page=$1
 
-    FILE=${TMPDIR}/${source}-${country}-${page}.html
+    FILE=${TMPDIR}/${country}-${source}-${page}.html
 
-    mkdir -p ${STORAGE}/${source}-${country}/${MONTH}/${DAY}
-
-    cp -f \
-	${FILE} \
-	${STORAGE}/${source}-${country}/${MONTH}/${DAY}/${source}-${country}-page-${page}.html
+    mkdir -p ${STORAGE}/${country}-${source}/${MONTH}/${DAY}
 
     cp -f \
 	${FILE} \
-	${WEBDATA}/${source}-${country}-page-${page}.html
+	${STORAGE}/${country}-${source}/${MONTH}/${DAY}/${country}-${source}-page-${page}.html
+
+    cp -f \
+	${FILE} \
+	${WEBDATA}/${country}-${source}-page-${page}.html
 }
 
 
@@ -38,7 +38,7 @@ do
     mkdir -p ${TMPDIR}
     cd ${TMPDIR}
 
-    FILE=${TMPDIR}/${source}-${country}-${page}.html
+    FILE=${TMPDIR}/${country}-${source}-${page}.html
 
     rm -f ${FILE}
 
@@ -80,7 +80,7 @@ do
 	> ${STORAGE}/${country}/${MONTH}/${DAY}/curl-ditib-places-data.out \
 	2> ${STORAGE}/${country}/${MONTH}/${DAY}/curl-ditib-places-data.err
 
-    # cp -ar ${WEBDATA}/${SOURCE}-${country}-split-* ${STORAGE}/${SOURCE}-${country}/${MONTH}/${DAY}
+    # cp -ar ${WEBDATA}/${country}-${source}-split-* ${STORAGE}/${country}-${source}/${MONTH}/${DAY}
 done
 
 db=osm_mosques
