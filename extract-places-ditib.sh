@@ -66,6 +66,9 @@ for country in germany
 do
     :
 
+    # TODO temporarily keep our old cached data
+    cp ${STORAGE}/${country}-${source}-keepme/201503/20150331/*.html ${WEBDATA}
+
     mkdir -p ${STORAGE}/${country}/${MONTH}/${DAY}
 
     curl \
