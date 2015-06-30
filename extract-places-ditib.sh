@@ -1,6 +1,6 @@
 #! /bin/sh
 
-OSMOSIS=${HOME}/osmosis-0.43.1
+OSMOSIS=${HOME}/osmosis-0.44.1
 STORAGE=${HOME}/Dropbox/osmdata
 TMPDIR=${HOME}/tmp/osm-place-ditib
 WEBDATA=/home/tomcat/osm-mosques/data
