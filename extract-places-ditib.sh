@@ -4,6 +4,7 @@ OSMOSIS=${HOME}/osmosis-0.43.1
 STORAGE=${HOME}/Dropbox/osmdata
 TMPDIR=${HOME}/tmp/osm-place-ditib
 WEBDATA=/home/tomcat/osm-mosques/data
+LOGDIR=${HOME}/logs
 
 COUNTRY=germany
 
@@ -60,6 +61,9 @@ do
     find ${STORAGE}/${country} -type d -a -empty | xargs --no-run-if-empty rmdir
 done
 
+MONTH=$(date +%Y%m)
+DAY=$(date +%Y%m%d)
+
 # TODO grep in property file to obtain username / password for webapp
 country=${COUNTRY}
 for country in germany
@@ -73,15 +77,25 @@ do
 
     curl \
 	"http://localhost:8888/rest/ditib/import" \
-	-o ${STORAGE}/${country}/${MONTH}/${DAY}/curl-ditib-places-import.txt \
-	> ${STORAGE}/${country}/${MONTH}/${DAY}/curl-ditib-places-import.out \
-	2> ${STORAGE}/${country}/${MONTH}/${DAY}/curl-ditib-places-import.err
+	-o ${LOGDIR}/curl-ditib-places-import.txt \
+	> ${LOGDIR}/curl-ditib-places-import.out \
+	2> ${LOGDIR}/curl-ditib-places-import.err
+
+    for x in curl-ditib-places-import.txt curl-ditib-places-import.out curl-ditib-places-import.err
+    do
+	mv ${LOGDIR}/${x} ${STORAGE}/${country}/${MONTH}/${DAY}/${x}
+    done
 
     curl \
 	"http://localhost:8888/rest/ditibPlace?size=999&sort=name" \
-	-o ${STORAGE}/${country}/${MONTH}/${DAY}/curl-ditib-places-data.txt \
-	> ${STORAGE}/${country}/${MONTH}/${DAY}/curl-ditib-places-data.out \
-	2> ${STORAGE}/${country}/${MONTH}/${DAY}/curl-ditib-places-data.err
+	-o ${LOGDIR}/curl-ditib-places-data.txt \
+	> ${LOGDIR}/curl-ditib-places-data.out \
+	2> ${LOGDIR}/curl-ditib-places-data.err
+
+    for x in curl-ditib-places-data.txt curl-ditib-places-data.out curl-ditib-places-data.err
+    do
+	mv ${LOGDIR}/${x} ${STORAGE}/${country}/${MONTH}/${DAY}/${x}
+    done
 
     # cp -ar ${WEBDATA}/${country}-${source}-split-* ${STORAGE}/${country}-${source}/${MONTH}/${DAY}
 done

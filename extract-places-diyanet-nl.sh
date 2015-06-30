@@ -4,6 +4,7 @@ OSMOSIS=${HOME}/osmosis-0.43.1
 STORAGE=${HOME}/Dropbox/osmdata
 TMPDIR=${HOME}/tmp/osm-place-diyanet-nl
 WEBDATA=/home/tomcat/osm-mosques/data
+LOGDIR=${HOME}/logs
 
 COUNTRY=netherlands
 
