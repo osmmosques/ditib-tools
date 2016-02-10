@@ -22,12 +22,12 @@ extract_data() {
     mkdir -p ${STORAGE}/${country}-${source}/${MONTH}/${DAY}
 
     cp -f \
-	${FILE} \
-	${STORAGE}/${country}-${source}/${MONTH}/${DAY}/${country}-${source}-page-${page}.html
+        ${FILE} \
+        ${STORAGE}/${country}-${source}/${MONTH}/${DAY}/${country}-${source}-page-${page}.html
 
     cp -f \
-	${FILE} \
-	${WEBDATA}/${country}-${source}-page-${page}.html
+        ${FILE} \
+        ${WEBDATA}/${country}-${source}-page-${page}.html
 }
 
 
@@ -44,17 +44,17 @@ do
     rm -f ${FILE}
 
     wget "http://www.ditib.de/default.php?pageNum_kat="${page}"&id=12&lang=de&12" -O ${FILE} \
-	> ${FILE}.out 2> ${FILE}.err
+        > ${FILE}.out 2> ${FILE}.err
 
     if [ -a ${FILE} ] 
     then
-	if [ -s ${FILE} ]
-	then
-	    MONTH=$(date +%Y%m --reference ${FILE})
-	    DAY=$(date +%Y%m%d --reference ${FILE})
+        if [ -s ${FILE} ]
+        then
+            MONTH=$(date +%Y%m --reference ${FILE})
+            DAY=$(date +%Y%m%d --reference ${FILE})
 
-	    extract_data ${page}
-	fi
+            extract_data ${page}
+        fi
     fi
 
     find ${STORAGE}/${country} -type f -a -mtime +14 | xargs --no-run-if-empty rm
@@ -76,25 +76,25 @@ do
     mkdir -p ${STORAGE}/${country}/${MONTH}/${DAY}
 
     curl \
-	"http://localhost:8888/rest/ditib/import" \
-	-o ${LOGDIR}/curl-ditib-places-import.txt \
-	> ${LOGDIR}/curl-ditib-places-import.out \
-	2> ${LOGDIR}/curl-ditib-places-import.err
+        "http://localhost:8888/rest/ditib/import" \
+        -o ${LOGDIR}/curl-ditib-places-import.txt \
+        > ${LOGDIR}/curl-ditib-places-import.out \
+        2> ${LOGDIR}/curl-ditib-places-import.err
 
     for x in curl-ditib-places-import.txt curl-ditib-places-import.out curl-ditib-places-import.err
     do
-	mv ${LOGDIR}/${x} ${STORAGE}/${country}/${MONTH}/${DAY}/${x}
+        mv ${LOGDIR}/${x} ${STORAGE}/${country}/${MONTH}/${DAY}/${x}
     done
 
     curl \
-	"http://localhost:8888/rest/ditibPlace?size=999&sort=name" \
-	-o ${LOGDIR}/curl-ditib-places-data.txt \
-	> ${LOGDIR}/curl-ditib-places-data.out \
-	2> ${LOGDIR}/curl-ditib-places-data.err
+        "http://localhost:8888/rest/ditibPlace?size=999&sort=name" \
+        -o ${LOGDIR}/curl-ditib-places-data.txt \
+        > ${LOGDIR}/curl-ditib-places-data.out \
+        2> ${LOGDIR}/curl-ditib-places-data.err
 
     for x in curl-ditib-places-data.txt curl-ditib-places-data.out curl-ditib-places-data.err
     do
-	mv ${LOGDIR}/${x} ${STORAGE}/${country}/${MONTH}/${DAY}/${x}
+        mv ${LOGDIR}/${x} ${STORAGE}/${country}/${MONTH}/${DAY}/${x}
     done
 
     # cp -ar ${WEBDATA}/${country}-${source}-split-* ${STORAGE}/${country}-${source}/${MONTH}/${DAY}

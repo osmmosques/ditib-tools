@@ -20,12 +20,12 @@ extract_data() {
     mkdir -p ${STORAGE}/${country}-${source}/${MONTH}/${DAY}
 
     cp -f \
-	${FILE} \
-	${STORAGE}/${country}-${source}/${MONTH}/${DAY}/${country}-${source}.html
+        ${FILE} \
+        ${STORAGE}/${country}-${source}/${MONTH}/${DAY}/${country}-${source}.html
 
     cp -f \
-	${FILE} \
-	${WEBDATA}/${country}-${source}.html
+        ${FILE} \
+        ${WEBDATA}/${country}-${source}.html
 }
 
 
@@ -39,16 +39,16 @@ cd ${TMPDIR}
 FILE=${TMPDIR}/${country}-${source}.html
 
 wget "http://www.diyanet.nl/hdv-cami-hizmetleri/sube-cami-adresleri/" -O ${FILE} \
-	> ${FILE}.out 2> ${FILE}.err
+        > ${FILE}.out 2> ${FILE}.err
 
 if [ -a ${FILE} ] 
 then
     if [ -s ${FILE} ]
     then
-	MONTH=$(date +%Y%m --reference ${FILE})
-	DAY=$(date +%Y%m%d --reference ${FILE})
+        MONTH=$(date +%Y%m --reference ${FILE})
+        DAY=$(date +%Y%m%d --reference ${FILE})
 
-	extract_data
+        extract_data
     fi
 fi
 
