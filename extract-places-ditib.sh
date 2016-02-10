@@ -33,7 +33,7 @@ extract_data() {
 
 country=${COUNTRY}
 source=${SOURCE}
-for page in $(seq 1 8)
+for page in $(seq 0 9)
 do
     :
     mkdir -p ${TMPDIR}
@@ -43,7 +43,12 @@ do
 
     rm -f ${FILE}
 
-    wget "http://www.ditib.de/default.php?pageNum_kat="${page}"&id=12&lang=de&12" -O ${FILE} \
+    # http://www.ditib.de/default.php?id=13&lang=de
+    # http://www.ditib.de/default.php?pageNum_kat=0&totalRows_kat=907&id=13&lang=de
+    # http://www.ditib.de/default.php?pageNum_kat=1&totalRows_kat=907&id=13&lang=de
+    # http://www.ditib.de/default.php?pageNum_kat=2&totalRows_kat=907&id=13&lang=de
+    # http://www.ditib.de/default.php?pageNum_kat=6&totalRows_kat=907&id=13&lang=de
+    wget "http://www.ditib.de/default.php?pageNum_kat="${page}"&totalRows_kat=907&id=13&lang=de" -O ${FILE} \
         > ${FILE}.out 2> ${FILE}.err
 
     if [ -a ${FILE} ] 
