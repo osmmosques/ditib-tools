@@ -77,7 +77,7 @@ public class DitibRepositoryImplTest
         assertEquals("City 2 mismatch", "KORNWESTHEIM", place.getCity());
 
         place = result.get(2);
-        assertEquals("ditibCode 3 mismatch", "M&Uuml;NCHEN-Untersendling", place.getDitibCode());
+        assertEquals("ditibCode 3 mismatch", "MÜNCHEN-Untersendling", place.getDitibCode());
         assertEquals("Name 3 mismatch", "DITIM-Türkisch Islamischen Kultur Zentrum e.V.", place.getName());
         assertEquals("Phone 3 mismatch", "+49/89/720 59 342", place.getPhone());
         assertEquals("Street 3 name mismatch", "Schanzenbachstr.", place.getStreet());
