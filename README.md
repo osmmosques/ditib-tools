@@ -5,7 +5,7 @@ Some Java classes to parse and persist DITIB data with Spring
 
 Status
 ======
-[![Dependency Status](https://www.versioneye.com/user/projects/53de9ae116279fb98c000007/badge.svg?style=flat)](https://www.versioneye.com/user/projects/53de9ae116279fb98c000007)
+[![Dependency Status](https://www.versioneye.com/user/projects/56c1e72118b271002c699f55/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56c1e72118b271002c699f55)
 
 Maven site(s)
 =============
