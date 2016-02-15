@@ -5,7 +5,7 @@
 
     <parent>
         <groupId>com.gurkensalat.osm.verification</groupId>
-        <artifactId>osm-mosques</artifactId>
+        <artifactId>ditib-tools</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 

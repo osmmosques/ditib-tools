@@ -4,22 +4,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.gurkensalat.osm.verification</groupId>
-    <artifactId>osm-mosques</artifactId>
+    <artifactId>ditib-tools</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <inceptionYear>2014</inceptionYear>
-    <url>http://hakan42.github.com/osm-mosques/</url>
+    <url>http://hakan42.github.com/ditib-tools/</url>
     <description></description>
 
     <modules>
         <module>ditib-parser</module>
         <module>ditib-persistence</module>
-        <module>geocoding-cache-persistence</module>
-        <module>osm-mosque-parser</module>
-        <module>osm-mosque-persistence</module>
-        <module>osm-mosque-qa-persistence</module>
-        <module>webapp</module>
     </modules>
 
     <properties>
@@ -114,9 +109,9 @@
 
     <!-- variables in scm urls make gh-pages site uploads fail -->
     <scm>
-        <url>https://github.com/hakan42/osm-mosques</url>
-        <connection>scm:git:https://github.com/hakan42/osm-mosques.git</connection>
-        <developerConnection>scm:git:https://github.com/hakan42/osm-mosques.git</developerConnection>
+        <url>https://github.com/hakan42/ditib-tools</url>
+        <connection>scm:git:https://github.com/hakan42/ditib-tools.git</connection>
+        <developerConnection>scm:git:https://github.com/hakan42/ditib-tools.git</developerConnection>
     </scm>
 
     <issueManagement>
