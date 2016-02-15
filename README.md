@@ -1,6 +1,7 @@
-osm-mosques
+ditib-tools
 ===========
-A Web application to display maps of muslim prayer sites
+Some Java classes to parse and persist DITIB data with Spring
+
 
 Status
 ======
@@ -8,4 +9,4 @@ Status
 
 Maven site(s)
 =============
-* [SNAPSHOT](http://hakan42.github.io/osm-mosques/site/0.0.1-SNAPSHOT/)
+* [SNAPSHOT](http://hakan42.github.io/ditib-tools/site/0.0.1-SNAPSHOT/)
