@@ -1,11 +1,13 @@
 package com.gurkensalat.osm.repository;
 
 import com.gurkensalat.osm.entity.DitibPlace;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "ditibPlace", path = "ditibPlace")
@@ -20,4 +22,14 @@ public interface DitibPlaceRepository extends PagingAndSortingRepository<DitibPl
                                 @Param("min_lat") double minLatitude,
                                 @Param("max_lon") double maxLongitude,
                                 @Param("max_lat") double maxLatitude);
+
+    @Modifying
+    @Transactional
+    @Query("update DitibPlace set valid = false")
+    void invalidateAll();
+
+    @Modifying
+    @Transactional
+    @Query("delete from DitibPlace where valid = false")
+    void deleteAllInvalid();
 }
