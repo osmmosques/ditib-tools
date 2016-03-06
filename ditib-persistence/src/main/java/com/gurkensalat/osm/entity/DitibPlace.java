@@ -1,10 +1,13 @@
 package com.gurkensalat.osm.entity;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "DITIB_PLACES")
@@ -15,6 +18,14 @@ public class DitibPlace extends OsmPlaceBase
 
     @Column(name = "GEOCODED")
     private boolean geocoded;
+
+    @Column(name = "LAST_GEOCODE_ATTEMT")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime lastGeocodeAttemt;
+
+    @Transient
+    private String humanReadableLastGeocodeAttemt;
+
 
     protected DitibPlace()
     {
@@ -46,6 +57,26 @@ public class DitibPlace extends OsmPlaceBase
     public void setGeocoded(boolean geocoded)
     {
         this.geocoded = geocoded;
+    }
+
+    public DateTime getLastGeocodeAttemt()
+    {
+        return lastGeocodeAttemt;
+    }
+
+    public void setLastGeocodeAttemt(DateTime lastGeocodeAttemt)
+    {
+        this.lastGeocodeAttemt = lastGeocodeAttemt;
+    }
+
+    public String getHumanReadableLastGeocodeAttemt()
+    {
+        return humanReadableLastGeocodeAttemt;
+    }
+
+    public void setHumanReadableLastGeocodeAttemt(String humanReadableLastGeocodeAttemt)
+    {
+        this.humanReadableLastGeocodeAttemt = humanReadableLastGeocodeAttemt;
     }
 
     public String toString()
