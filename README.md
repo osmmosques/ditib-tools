@@ -12,4 +12,4 @@ Status
 
 Maven site(s)
 =============
-* [SNAPSHOT](http://hakan42.github.io/ditib-tools/site/0.0.1-SNAPSHOT/)
+* [0.0.1-SNAPSHOT](http://hakan42.github.io/ditib-tools/site/0.0.1-SNAPSHOT/)
