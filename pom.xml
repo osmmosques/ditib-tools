@@ -179,24 +179,6 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>osm-mosque-parser</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>osm-mosque-persistence</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>osm-mosque-qa-persistence</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
             <!-- Our own libraries -->
             <dependency>
                 <groupId>com.gurkensalat.osm</groupId>
@@ -214,12 +196,6 @@
                 <groupId>com.gurkensalat.osm</groupId>
                 <artifactId>osm-utils</artifactId>
                 <version>${osm-tools.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.tandogan.osm</groupId>
-                <artifactId>opencagedata-geocoder-library</artifactId>
-                <version>${geocoder-version}</version>
             </dependency>
 
             <!-- DI, ORM -->
@@ -329,49 +305,6 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson.version}-1</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.connect-group</groupId>
-                <artifactId>thymeleaf-extras</artifactId>
-                <version>${thymeleaf-extras.version}</version>
-            </dependency>
-
-            <!-- Javascript libraries for frontend -->
-            <dependency>
-                <groupId>org.webjars</groupId>
-                <artifactId>tablesorter</artifactId>
-                <version>${tablesorter.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.webjars</groupId>
-                <artifactId>jquery</artifactId>
-                <version>${jquery.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.webjars</groupId>
-                <artifactId>leaflet</artifactId>
-                <version>${leaflet.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.webjars</groupId>
-                <artifactId>Leaflet.MakiMarkers</artifactId>
-                <version>${leaflet-makimarkers.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.webjars</groupId>
-                <artifactId>leaflet-markercluster</artifactId>
-                <version>${leaflet-markercluster.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.webjars</groupId>
-                <artifactId>leaflet-plugins</artifactId>
-                <version>${leaflet-plugins.version}</version>
             </dependency>
 
             <!-- Logging -->
