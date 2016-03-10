@@ -1,6 +1,7 @@
 package com.gurkensalat.osm.repository;
 
 import com.gurkensalat.osm.entity.DitibParsedPlace;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -64,26 +65,14 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
                         {
                             String[] brElements = secondColumn.html().split("<br>");
 
-                            if (brElements.length > 0)
-                            {
-                                place = extractPlaceName(brElements[1], place);
-                            }
+                            place = extractPlaceName(safeGetElement(brElements, 1), place);
 
-                            if (brElements.length > 1)
-                            {
-                                place = extractPlaceStreetNameAndNumber(brElements[2], place);
-                            }
+                            place = extractPlaceStreetNameAndNumber(safeGetElement(brElements, 2), place);
 
-                            if (brElements.length > 2)
-                            {
-                                place = extractPostcodeAndCity(brElements[3], place);
-                            }
+                            place = extractPostcodeAndCity(safeGetElement(brElements, 3), place);
 
-                            if (brElements.length > 3)
-                            {
-                                // Actually, we have no use yet for the Google Map Link...
-                                String gmapLink = brElements[4];
-                            }
+                            // Actually, we have no use yet for the Google Map Link...
+                            String gmapLink = safeGetElement(brElements, 4);
                         }
 
                         Elements thirdColumn = element.select("div.col_5");
@@ -91,33 +80,17 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
                         {
                             String[] brElements = thirdColumn.html().split("<br>");
 
-                            if (brElements.length > 0)
-                            {
-                                place = extractPhoneNumber(brElements[1], place);
-                            }
+                            place = extractPhoneNumber(safeGetElement(brElements, 1), place);
 
-                            if (brElements.length > 1)
-                            {
-                                place = extractFaxNumber(brElements[2], place);
-                            }
+                            place = extractFaxNumber(safeGetElement(brElements, 2), place);
 
-                            if (brElements.length > 2)
-                            {
-                                // url?
-                                // <a href="http://www.ditib-germering.de" target="_blank"><i class="fa fa-home"></i> Internet</a>
+                            // url?
+                            // <a href="http://www.ditib-germering.de" target="_blank"><i class="fa fa-home"></i> Internet</a>
+                            String url = safeGetElement(brElements, 3);
 
-                                String foo = brElements[3];
-                                foo = "bar";
-                            }
-
-                            if (brElements.length > 3)
-                            {
-                                // email address
-                                // <a href="mailto:konstzanzcamii@hotmail.com"> <i class="fa fa-envelope"> </i> E-Mail</a>
-
-                                String foo = brElements[4];
-                                foo = "bar";
-                            }
+                            // email address
+                            // <a href="mailto:konstzanzcamii@hotmail.com"> <i class="fa fa-envelope"> </i> E-Mail</a>
+                            String email = safeGetElement(brElements, 3);
                         }
 
                         place.setDitibCode(stripToEmpty(place.getDitibCode()));
@@ -284,6 +257,18 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
             {
                 result = e.get(index);
             }
+        }
+
+        return result;
+    }
+
+    protected String safeGetElement(String[] array, int index)
+    {
+        String result = "";
+
+        if (array.length > index)
+        {
+            result = array[index];
         }
 
         return result;

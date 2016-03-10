@@ -103,4 +103,14 @@ public class DitibRepositoryImplTest
 
         testable.prettify(new File("target"), file);
     }
+
+    @Test
+    public void safeGetElement()
+    {
+        String[] array = new String[]{"one", "two"};
+
+        assertEquals("one", testable.safeGetElement(array, 0));
+        assertEquals("two", testable.safeGetElement(array, 1));
+        assertEquals("", testable.safeGetElement(array, 2));
+    }
 }
