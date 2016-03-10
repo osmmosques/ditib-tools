@@ -21,7 +21,7 @@ import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.collections4.ListUtils.emptyIfNull;
 import static org.apache.commons.io.IOUtils.closeQuietly;
 import static org.apache.commons.lang3.StringUtils.indexOfAny;
-import static org.apache.commons.lang3.StringUtils.removeStart;
+import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.replaceOnce;
 import static org.apache.commons.lang3.StringUtils.stripToEmpty;
 
@@ -30,7 +30,7 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(DitibParserRepositoryImpl.class);
 
-    private final String CSS_PATH = "td.body_text2";
+    private final String CSS_PATH = "div.col_5c.content > div.row > div.row";
 
     public List<DitibParsedPlace> parse(File resourceFile)
     {
@@ -51,27 +51,74 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
                     LOGGER.debug("-------------------------------------------------------");
                     LOGGER.debug("Found: {}, {}", hitNumber++, element);
 
-                    Elements rows = element.select("tbody > tr");
-                    if (isNotEmpty(rows))
+                    Elements row = element.select("div.col_4");
+                    if (isNotEmpty(row))
                     {
                         DitibParsedPlace place = new DitibParsedPlace();
 
-                        Element row0 = safeGetElement(rows, 0);
-                        place = extractPlaceCode(row0, place);
+                        Element nameNode = safeGetElement(row.select("h5"), 0);
+                        place = extractPlaceCode(nameNode, place);
 
-                        Element row1 = safeGetElement(rows, 1);
-                        place = extractPlaceName(row1, place);
-                        place = extractPhoneNumber(row1, place);
+                        Elements secondColumn = element.select("div.col_2");
+                        if (isNotEmpty(secondColumn))
+                        {
+                            String[] brElements = secondColumn.html().split("<br>");
 
-                        Element row2 = safeGetElement(rows, 2);
-                        place = extractPlaceStreetNameAndNumber(row2, place);
-                        place = extractFaxNumber(row2, place);
+                            if (brElements.length > 0)
+                            {
+                                place = extractPlaceName(brElements[1], place);
+                            }
 
-                        Element row3 = safeGetElement(rows, 3);
-                        place = extractPostcodeAndCity(row3, place);
+                            if (brElements.length > 1)
+                            {
+                                place = extractPlaceStreetNameAndNumber(brElements[2], place);
+                            }
 
-                        Element row4 = safeGetElement(rows, 4);
-                        place = extractFoo4(row4, place);
+                            if (brElements.length > 2)
+                            {
+                                place = extractPostcodeAndCity(brElements[3], place);
+                            }
+
+                            if (brElements.length > 3)
+                            {
+                                // Actually, we have no use yet for the Google Map Link...
+                                String gmapLink = brElements[4];
+                            }
+                        }
+
+                        Elements thirdColumn = element.select("div.col_5");
+                        if (isNotEmpty(thirdColumn))
+                        {
+                            String[] brElements = thirdColumn.html().split("<br>");
+
+                            if (brElements.length > 0)
+                            {
+                                place = extractPhoneNumber(brElements[1], place);
+                            }
+
+                            if (brElements.length > 1)
+                            {
+                                place = extractFaxNumber(brElements[2], place);
+                            }
+
+                            if (brElements.length > 2)
+                            {
+                                // url?
+                                // <a href="http://www.ditib-germering.de" target="_blank"><i class="fa fa-home"></i> Internet</a>
+
+                                String foo = brElements[3];
+                                foo = "bar";
+                            }
+
+                            if (brElements.length > 3)
+                            {
+                                // email address
+                                // <a href="mailto:konstzanzcamii@hotmail.com"> <i class="fa fa-envelope"> </i> E-Mail</a>
+
+                                String foo = brElements[4];
+                                foo = "bar";
+                            }
+                        }
 
                         place.setDitibCode(stripToEmpty(place.getDitibCode()));
                         place.setName(stripToEmpty(place.getName()));
@@ -84,7 +131,11 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
                         place.setPhone(stripToEmpty(place.getPhone()));
                         place.setFax(stripToEmpty(place.getFax()));
 
-                        result.add(place);
+                        // TODO - an "already-found"-Index of some sort...
+                        if (!(isEmpty(place.getDitibCode())))
+                        {
+                            result.add(place);
+                        }
                     }
                 }
             }
@@ -105,70 +156,59 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
         LOGGER.debug("{}", block.toString());
         LOGGER.debug("-------------------------------------------------------");
 
-        // fsck css, just run indexOf :-(
-        String data = block.toString();
-        int from = data.lastIndexOf("<strong>");
-        int to = data.lastIndexOf("</strong>");
-
-        if (from != -1 && to != -1)
-        {
-            data = data.substring(from + 8, to);
-            data = data.replaceAll("&nbsp;", "");
-            place.setDitibCode(data);
-        }
+        String data = stripToEmpty(block.ownText());
+        data = data.replaceAll("&nbsp;", "");
+        place.setDitibCode(data);
 
         return place;
     }
 
-    protected DitibParsedPlace extractPlaceName(Element block, DitibParsedPlace place)
+    protected DitibParsedPlace extractPlaceName(String block, DitibParsedPlace place)
     {
         LOGGER.debug("extractPlaceName()");
         LOGGER.debug("-------------------------------------------------------");
         LOGGER.debug("{}", block.toString());
         LOGGER.debug("-------------------------------------------------------");
 
-        String data = block.toString();
-        place.setName(safeGetText(block, 2));
+        String data = stripToEmpty(block);
+        place.setName(data);
 
         return place;
     }
 
-    protected DitibParsedPlace extractPhoneNumber(Element block, DitibParsedPlace place)
+    protected DitibParsedPlace extractPhoneNumber(String block, DitibParsedPlace place)
     {
         LOGGER.debug("extractPhoneNumber()");
         LOGGER.debug("-------------------------------------------------------");
         LOGGER.debug("{}", block.toString());
         LOGGER.debug("-------------------------------------------------------");
 
-        int elementNumber = 0;
-        for (Element element : block.getAllElements())
+        int i = block.indexOf("</i>");
+        if (i > -1)
         {
-            String data = element.toString();
-            LOGGER.debug("  {} - '{}'", elementNumber++, data);
+            String phone = block.substring(i + 4);
+            phone = stripToEmpty(phone);
+            if (phone.startsWith("0"))
+            {
+                phone = replaceOnce(phone, "0", "+49 / ");
+            }
+
+            phone = StringUtils.replace(phone, " / ", "/");
+
+            place.setPhone(phone);
         }
-
-        String phone = safeGetText(block, 6);
-        if (phone.startsWith("0"))
-        {
-            phone = replaceOnce(phone, "0", "+49 / ");
-        }
-
-
-        phone = StringUtils.replace(phone, " / ", "/");
-
-        place.setPhone(phone);
 
         return place;
     }
 
-    protected DitibParsedPlace extractPlaceStreetNameAndNumber(Element block, DitibParsedPlace place)
+    protected DitibParsedPlace extractPlaceStreetNameAndNumber(String block, DitibParsedPlace place)
     {
         LOGGER.debug("extractPlaceStreetNameAndNumber()");
         LOGGER.debug("-------------------------------------------------------");
         LOGGER.debug("{}", block.toString());
         LOGGER.debug("-------------------------------------------------------");
 
-        String streetAndNumber = safeGetText(block, 5);
+        String streetAndNumber = stripToEmpty(block);
 
         streetAndNumber = streetAndNumber.replaceAll("\\.", ". ");
         int i = indexOfAny(streetAndNumber, '0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
@@ -184,38 +224,37 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
             place.setStreetNumber("");
         }
 
+        place.setStreetNumber(place.getStreetNumber().replaceAll(",", ""));
+
         return place;
     }
 
-    protected DitibParsedPlace extractFaxNumber(Element block, DitibParsedPlace place)
+    protected DitibParsedPlace extractFaxNumber(String block, DitibParsedPlace place)
     {
         LOGGER.debug("extractFaxNumber()");
         LOGGER.debug("-------------------------------------------------------");
         LOGGER.debug("{}", block.toString());
         LOGGER.debug("-------------------------------------------------------");
 
-        String fax = safeGetText(block, 9);
-
-        fax = removeStart(fax, "tel.");
-
-        if (fax.startsWith("212"))
+        int i = block.indexOf("</i>");
+        if (i > -1)
         {
-            fax = replaceOnce(fax, "212", "0212");
+            String fax = block.substring(i + 4);
+            fax = stripToEmpty(fax);
+            if (fax.startsWith("0"))
+            {
+                fax = replaceOnce(fax, "0", "+49 / ");
+            }
+
+            fax = StringUtils.replace(fax, " / ", "/");
+
+            place.setFax(fax);
         }
-
-        if (fax.startsWith("0"))
-        {
-            fax = replaceOnce(fax, "0", "+49 / ");
-        }
-
-        fax = StringUtils.replace(fax, " / ", "/");
-
-        place.setFax(fax);
 
         return place;
     }
 
-    protected DitibParsedPlace extractPostcodeAndCity(Element block, DitibParsedPlace place)
+    protected DitibParsedPlace extractPostcodeAndCity(String block, DitibParsedPlace place)
     {
         LOGGER.debug("extractPostcodeAndCity()");
         LOGGER.debug("-------------------------------------------------------");
@@ -223,7 +262,7 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
         LOGGER.debug("-------------------------------------------------------");
 
         place.setPostcode("");
-        place.setCity(safeGetText(block, 2));
+        place.setCity(stripToEmpty(block));
 
         int spaceIndex = place.getCity().indexOf(" ");
         if (spaceIndex > -1)
@@ -231,16 +270,6 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
             place.setPostcode(place.getCity().substring(0, spaceIndex));
             place.setCity(place.getCity().substring(spaceIndex + 1));
         }
-
-        return place;
-    }
-
-    protected DitibParsedPlace extractFoo4(Element block, DitibParsedPlace place)
-    {
-        LOGGER.debug("extractFoo4()");
-        LOGGER.debug("-------------------------------------------------------");
-        LOGGER.debug("{}", block.toString());
-        LOGGER.debug("-------------------------------------------------------");
 
         return place;
     }
@@ -254,26 +283,6 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
             if (e.size() > index)
             {
                 result = e.get(index);
-            }
-        }
-
-        return result;
-    }
-
-    protected String safeGetText(Element element, int index)
-    {
-        String result = "";
-
-        if (element != null)
-        {
-            if (element.getAllElements() != null)
-            {
-                if (element.getAllElements().size() >= index)
-                {
-                    Element work;
-                    work = element.getAllElements().get(index);
-                    result = work.text();
-                }
             }
         }
 
