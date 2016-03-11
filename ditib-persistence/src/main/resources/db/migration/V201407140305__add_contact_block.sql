@@ -1,4 +1,4 @@
-ALTER TABLE `ditib_places` add `email`   varchar(80) DEFAULT NULL;
-ALTER TABLE `ditib_places` add `fax`     varchar(80) DEFAULT NULL;
-ALTER TABLE `ditib_places` add `phone`   varchar(80) DEFAULT NULL;
-ALTER TABLE `ditib_places` add `website` varchar(80) DEFAULT NULL;
+ALTER TABLE `DITIB_PLACES` add `EMAIL`   varchar(80) DEFAULT NULL;
+ALTER TABLE `DITIB_PLACES` add `FAX`     varchar(80) DEFAULT NULL;
+ALTER TABLE `DITIB_PLACES` add `PHONE`   varchar(80) DEFAULT NULL;
+ALTER TABLE `DITIB_PLACES` add `WEBSITE` varchar(80) DEFAULT NULL;

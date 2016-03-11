@@ -1,16 +1,16 @@
-CREATE TABLE `ditib_places`
+CREATE TABLE `DITIB_PLACES`
 (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `version` int(11) DEFAULT NULL,
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `VERSION` int(11) DEFAULT NULL,
 
-  PRIMARY KEY(`id`)
+  PRIMARY KEY(`ID`)
 )
 DEFAULT CHARSET=utf8;
 
-ALTER TABLE `ditib_places` add `lat` double DEFAULT NULL;
-ALTER TABLE `ditib_places` add `lon` double DEFAULT NULL;
-ALTER TABLE `ditib_places` add `name` varchar(80) DEFAULT NULL;
-ALTER TABLE `ditib_places` add `type` varchar(20) DEFAULT NULL;
-ALTER TABLE `ditib_places` add `d_key` varchar(80) DEFAULT NULL;
-ALTER TABLE `ditib_places` add `d_code` varchar(80) DEFAULT NULL;
-ALTER TABLE `ditib_places` add `valid` bit(1) DEFAULT NULL;
+ALTER TABLE `DITIB_PLACES` add `LAT` double DEFAULT NULL;
+ALTER TABLE `DITIB_PLACES` add `LON` double DEFAULT NULL;
+ALTER TABLE `DITIB_PLACES` add `NAME` varchar(80) DEFAULT NULL;
+ALTER TABLE `DITIB_PLACES` add `TYPE` varchar(20) DEFAULT NULL;
+ALTER TABLE `DITIB_PLACES` add `D_KEY` varchar(80) DEFAULT NULL;
+ALTER TABLE `DITIB_PLACES` add `D_CODE` varchar(80) DEFAULT NULL;
+ALTER TABLE `DITIB_PLACES` add `VALID` bit(1) DEFAULT NULL;

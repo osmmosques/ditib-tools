@@ -1,1 +1,1 @@
-ALTER TABLE `ditib_places` add `last_geocode_attempt` datetime DEFAULT NULL;
+ALTER TABLE `DITIB_PLACES` add `LAST_GEOCODE_ATTEMPT` datetime DEFAULT NULL;
