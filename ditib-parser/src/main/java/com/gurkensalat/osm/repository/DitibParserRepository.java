@@ -7,7 +7,12 @@ import java.util.List;
 
 public interface DitibParserRepository
 {
+    @Deprecated
     List<DitibParsedPlace> parse(File resourceFile);
+
+    List<DitibParsedPlace> parseGermany(File resourceFile);
+
+    List<DitibParsedPlace> parseNetherlands(File resourceFile);
 
     void prettify(File target, File resourceFile);
 }

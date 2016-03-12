@@ -16,7 +16,7 @@ import static org.junit.Assert.assertNotSame;
 
 public class DitibRepositoryImplTest
 {
-    DitibParserRepositoryImpl testable;
+    DitibParserRepository testable;
 
     @Before
     public void setUp()
@@ -109,8 +109,8 @@ public class DitibRepositoryImplTest
     {
         String[] array = new String[]{"one", "two"};
 
-        assertEquals("one", testable.safeGetElement(array, 0));
-        assertEquals("two", testable.safeGetElement(array, 1));
-        assertEquals("", testable.safeGetElement(array, 2));
+        assertEquals("one", ((DitibParserRepositoryImpl) testable).safeGetElement(array, 0));
+        assertEquals("two", ((DitibParserRepositoryImpl) testable).safeGetElement(array, 1));
+        assertEquals("", ((DitibParserRepositoryImpl) testable).safeGetElement(array, 2));
     }
 }
