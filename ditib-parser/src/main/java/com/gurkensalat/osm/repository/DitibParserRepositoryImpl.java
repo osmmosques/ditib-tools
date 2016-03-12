@@ -2,7 +2,6 @@ package com.gurkensalat.osm.repository;
 
 import com.gurkensalat.osm.entity.DitibParsedPlace;
 import com.gurkensalat.osm.entity.DitibParsedPlaceKey;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -32,7 +31,10 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(DitibParserRepositoryImpl.class);
 
-    private final String CSS_PATH = "div.col_5c.content > div.row > div.row";
+    private final String DITIB_DE_CSS_PATH = "div.col_5c.content > div.row > div.row";
+
+    // //*[@id="table-3"]
+    private final String DIYANET_NL_CSS_PATH = "table#table-3 > tbody > tr";
 
     public List<DitibParsedPlace> parse(File resourceFile)
     {
@@ -47,7 +49,7 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
         {
             Document document = Jsoup.parse(resourceFile, "UTF-8", "http://www.ditib.de/");
 
-            Elements selection = document.select(CSS_PATH);
+            Elements selection = document.select(DITIB_DE_CSS_PATH);
             LOGGER.debug("Found {} matching elements", selection.size());
 
             if (isNotEmpty(selection))
@@ -99,6 +101,8 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
                             String email = safeGetElement(brElements, 3);
                         }
 
+                        place.setCountry("DE");
+
                         place.setDitibCode(new DitibParsedPlaceKey(place).getKey());
                         place.setDitibCode(stripToEmpty(place.getDitibCode()));
 
@@ -132,62 +136,91 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
 
     public List<DitibParsedPlace> parseNetherlands(File resourceFile)
     {
-        // Mock data, for now...
         List<DitibParsedPlace> result = new ArrayList<DitibParsedPlace>();
 
-        // HDV ORANJE KULTUR MERKEZI	SCHOOLSTR.50	2712VC	ZOETERMEER
+        try
         {
-            DitibParsedPlace place = new DitibParsedPlace();
-            place.setName("HDV ORANJE KULTUR MERKEZI");
-            place.setCountry("NL");
-            place.setStreet("SCHOOLSTR.");
-            place.setStreetNumber("50");
-            place.setPostcode("2712VC");
-            place.setCity("ZOETERMEER");
-            place.setDitibCode(new DitibParsedPlaceKey(place).getKey());
-            result.add(place);
-        }
+            Document document = Jsoup.parse(resourceFile, "UTF-8", "http://www.ditib.de/");
 
-        // HDV ULU	OUDENDIJK 267	3061AK	ROTTERDAM	010-4528326
-        {
-            DitibParsedPlace place = new DitibParsedPlace();
-            place.setName("HDV ULU");
-            place.setCountry("NL");
-            place.setStreet("OUDENDIJK");
-            place.setStreetNumber("267");
-            place.setPostcode("3061AK");
-            place.setCity("ROTTERDAM");
-            place.setDitibCode(new DitibParsedPlaceKey(place).getKey());
-            result.add(place);
-        }
+            Elements selection = document.select(DIYANET_NL_CSS_PATH);
+            LOGGER.debug("Found {} matching elements", selection.size());
 
-        // HDV ORHAN GAZİ	MANSHOLTSTR 130	9602 SJ	HOOGEZAND	0598-327050
-        {
-            DitibParsedPlace place = new DitibParsedPlace();
-            place.setName("HDV ORHAN GAZİ");
-            place.setCountry("NL");
-            place.setStreet("MANSHOLTSTR.");
-            place.setStreetNumber("130");
-            place.setPostcode("9602 SJ");
-            place.setCity("HOOGEZAND");
-            place.setDitibCode(new DitibParsedPlaceKey(place).getKey());
-            result.add(place);
-        }
+            if (isNotEmpty(selection))
+            {
+                int hitNumber = 0;
+                for (Element row : selection)
+                {
+                    LOGGER.debug("-------------------------------------------------------");
+                    LOGGER.debug("Found: {}, {}", hitNumber++, row);
 
-        // SULEYMANIYE CAMII	OOKMEERWEG 206	1068 AX	AMSTERDAM	020-6199589
+                    Elements cells = row.select("td");
+                    if (isNotEmpty(cells))
+                    {
+                        DitibParsedPlace place = new DitibParsedPlace();
+
+                        // 0: <td style="height: 20px;" valign="middle"> <p class="basic-paragraph">35</p> </td>
+                        Element e0 = safeGetElement(cells, 0);
+
+                        // 1: <td>HDV MESCİD-İ KUBA</td>
+                        // Element e1 = safeGetElement(cells, 1);
+                        place = extractPlaceName(safeGetInnerText(safeGetElement(cells, 1)), place);
+                        if ("Şube Adı / Naam".equals(place.getName()))
+                        {
+                            place.setName(null);
+                        }
+
+                        // 2: <td>GUIDO GEZELLESTR. 52</td>
+                        // Element e2 = safeGetElement(cells, 2);
+                        place = extractPlaceStreetNameAndNumber(safeGetInnerText(safeGetElement(cells, 2)), place);
+
+                        // 3  <td>2524CM</td>
+                        // Element e3 = safeGetElement(cells, 3);
+                        place.setPostcode(safeGetInnerText(safeGetElement(cells, 3)));
+
+                        // 4: <td>DEN HAAG</td>
+                        // Element e4 = safeGetElement(cells, 4);
+                        place.setCity(safeGetInnerText(safeGetElement(cells, 4)));
+
+                        // 5: <td>070-3962637</td>
+                        Element e5 = safeGetElement(cells, 5);
+
+                        // 6: <td><a href="http://www.mescidiaksa.eu/"><img class="aligncenter" title="icon_internet" src="http://www.diyanet.nl/wp-content/uploads/2012/06/icon_internet.png" alt="" width="25" height="26"></a></td>
+                        Element e6 = safeGetElement(cells, 6);
+
+                        // 7: <td><a href="mailto:hdvdenhaagkuba@vakif.nl"><img class="aligncenter" title="icon_email" src="http://www.diyanet.nl/wp-content/uploads/2012/06/icon_email.png" alt="" width="25" height="26"></a></td>
+                        Element e7 = safeGetElement(cells, 7);
+
+                        place.setCountry("NL");
+
+                        place.setDitibCode(new DitibParsedPlaceKey(place).getKey());
+                        place.setDitibCode(stripToEmpty(place.getDitibCode()));
+
+                        place.setName(stripToEmpty(place.getName()));
+
+                        place.setStreet(stripToEmpty(place.getStreet()));
+                        place.setStreetNumber(stripToEmpty(place.getStreetNumber()));
+                        place.setPostcode(stripToEmpty(place.getPostcode()));
+                        place.setCity(stripToEmpty(place.getCity()));
+
+                        place.setPhone(stripToEmpty(place.getPhone()));
+                        place.setFax(stripToEmpty(place.getFax()));
+
+                        // TODO - an "already-found"-Index of some sort...
+                        if (!(isEmpty(place.getName())))
+                        {
+                            result.add(place);
+                        }
+                    }
+                }
+            }
+        }
+        catch (IOException ioe)
         {
-            DitibParsedPlace place = new DitibParsedPlace();
-            place.setName("SULEYMANIYE CAMII");
-            place.setCountry("NL");
-            place.setStreet("OOKMEERWEG");
-            place.setStreetNumber("206");
-            place.setPostcode("1068 AX");
-            place.setCity("AMSTERDAM");
-            place.setDitibCode(new DitibParsedPlaceKey(place).getKey());
-            result.add(place);
+            LOGGER.error("While parsing {}", resourceFile, ioe);
         }
 
         result = emptyIfNull(result);
+
         return result;
     }
 
@@ -343,6 +376,18 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
         return result;
     }
 
+    protected String safeGetInnerText(Element e)
+    {
+        String result = "";
+
+        if (e != null)
+        {
+            result = stripToEmpty(e.text());
+        }
+
+        return result;
+    }
+
     public void prettify(File target, File resourceFile)
     {
         try
@@ -362,7 +407,7 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
                 closeQuietly(fos);
             }
 
-            Elements selection = document.select(CSS_PATH);
+            Elements selection = document.select(DITIB_DE_CSS_PATH);
             LOGGER.debug("Found {} matching elements", selection.size());
 
             String nameBase = resourceFile.getName();

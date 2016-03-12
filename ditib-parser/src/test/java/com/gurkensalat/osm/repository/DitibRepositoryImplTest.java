@@ -26,6 +26,14 @@ public class DitibRepositoryImplTest
     }
 
     @Test
+    public void prettifyGermeringData() throws IOException
+    {
+        File file = new File("src/test/resources/ditib-germering.html");
+
+        testable.prettify(new File("target"), file);
+    }
+
+    @Test
     public void parseGermeringData() throws IOException
     {
         File file = new File("src/test/resources/ditib-germering.html");
@@ -48,7 +56,15 @@ public class DitibRepositoryImplTest
     }
 
     @Test
-    public void parseThreePlacesData() throws IOException
+    public void prettifyDitibDEThreePlacesData() throws IOException
+    {
+        File file = new File("src/test/resources/ditib-three-places.html");
+
+        testable.prettify(new File("target"), file);
+    }
+
+    @Test
+    public void parseDitibDEThreePlacesData() throws IOException
     {
         File file = new File("src/test/resources/ditib-three-places.html");
 
@@ -89,19 +105,53 @@ public class DitibRepositoryImplTest
     }
 
     @Test
-    public void prettifyGermeringData() throws IOException
+    public void prettifyDiyanetNLThreePlacesData() throws IOException
     {
-        File file = new File("src/test/resources/ditib-germering.html");
+        File file = new File("src/test/resources/diyanet-nl-three-places.html");
 
         testable.prettify(new File("target"), file);
     }
 
     @Test
-    public void prettifyThreePlacesData() throws IOException
+    public void parseDiyanetNLThreePlacesData() throws IOException
     {
-        File file = new File("src/test/resources/ditib-three-places.html");
+        File file = new File("src/test/resources/diyanet-nl-three-places.html");
 
-        testable.prettify(new File("target"), file);
+        List<DitibParsedPlace> result = testable.parseNetherlands(file);
+
+
+        assertNotNull(result);
+        assertEquals(3, result.size());
+
+        DitibParsedPlace place = result.get(0);
+        assertEquals("ditibCode 1 mismatch", "nl-2524cm-31-3", place.getDitibCode());
+        assertEquals("Name 1 mismatch", "HDV MESCİD-İ KUBA", place.getName());
+        assertEquals("Street 1 name mismatch", "GUIDO GEZELLESTR.", place.getStreet());
+        assertEquals("Street 1 number mismatch", "52", place.getStreetNumber());
+        assertEquals("Phone 1 mismatch", "", place.getPhone());
+        assertEquals("Fax 1 mismatch", "", place.getFax());
+        assertEquals("PostCode 1 mismatch", "2524CM", place.getPostcode());
+        assertEquals("City 1 mismatch", "DEN HAAG", place.getCity());
+
+        place = result.get(1);
+        assertEquals("ditibCode 2 mismatch", "nl-2572re-93-1", place.getDitibCode());
+        assertEquals("Name 2 mismatch", "HDV SEYH AHMET EFENDI", place.getName());
+        assertEquals("Street 2 name mismatch", "FISCHERSTRAAT", place.getStreet());
+        assertEquals("Street 2 number mismatch", "96", place.getStreetNumber());
+        assertEquals("Phone 2 mismatch", "", place.getPhone());
+        assertEquals("Fax 2 mismatch", "", place.getFax());
+        assertEquals("PostCode 2 mismatch", "2572RE", place.getPostcode());
+        assertEquals("City 2 mismatch", "DEN HAAG", place.getCity());
+
+        place = result.get(2);
+        assertEquals("ditibCode 3 mismatch", "nl-1784nz-64-6", place.getDitibCode());
+        assertEquals("Name 3 mismatch", "HDV AYASOFYA", place.getName());
+        assertEquals("Street 3 name mismatch", "A. R.  VERSCHOORLAAN", place.getStreet());
+        assertEquals("Street 3 number mismatch", "19", place.getStreetNumber());
+        assertEquals("Phone 3 mismatch", "", place.getPhone());
+        assertEquals("Fax 3 mismatch", "", place.getFax());
+        assertEquals("PostCode 3 mismatch", "1784 NZ", place.getPostcode());
+        assertEquals("City 3 mismatch", "DEN HELDER", place.getCity());
     }
 
     @Test
