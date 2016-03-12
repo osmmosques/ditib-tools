@@ -9,6 +9,8 @@ LOGDIR=${HOME}/logs
 SOURCE=ditib
 
 
+MONTH=$(date +%Y%m)
+DAY=$(date +%Y%m%d)
 
 
 db=osm_mosques
