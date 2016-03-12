@@ -2,13 +2,13 @@
 
 OSMOSIS=${HOME}/osmosis-0.44.1
 STORAGE=${HOME}/Dropbox/osmdata
-TMPDIR=${HOME}/tmp/osm-place-diyanet-nl
+TMPDIR=${HOME}/tmp/osm-place-diyanet
 WEBDATA=/home/tomcat/osm-mosques/data
 LOGDIR=${HOME}/logs
 
 COUNTRY=netherlands
 
-SOURCE=diyanet-nl
+SOURCE=diyanet
 
 extract_data() {
 
