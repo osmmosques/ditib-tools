@@ -30,7 +30,7 @@ public class DitibRepositoryImplTest
     {
         File file = new File("src/test/resources/ditib-germering.html");
 
-        List<DitibParsedPlace> result = testable.parse(file);
+        List<DitibParsedPlace> result = testable.parseGermany(file);
 
         assertNotNull(result);
         assertEquals(1, result.size());
@@ -52,7 +52,7 @@ public class DitibRepositoryImplTest
     {
         File file = new File("src/test/resources/ditib-three-places.html");
 
-        List<DitibParsedPlace> result = testable.parse(file);
+        List<DitibParsedPlace> result = testable.parseGermany(file);
 
         assertNotNull(result);
         assertEquals(3, result.size());

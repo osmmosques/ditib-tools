@@ -36,6 +36,11 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
 
     public List<DitibParsedPlace> parse(File resourceFile)
     {
+        return parseGermany(resourceFile);
+    }
+
+    public List<DitibParsedPlace> parseGermany(File resourceFile)
+    {
         List<DitibParsedPlace> result = new ArrayList<DitibParsedPlace>();
 
         try
@@ -108,7 +113,7 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
                         place.setFax(stripToEmpty(place.getFax()));
 
                         // TODO - an "already-found"-Index of some sort...
-                        if (!(isEmpty(place.getDitibCode())))
+                        if (!(isEmpty(place.getName())))
                         {
                             result.add(place);
                         }
@@ -119,6 +124,67 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
         catch (IOException ioe)
         {
             LOGGER.error("While parsing {}", resourceFile, ioe);
+        }
+
+        result = emptyIfNull(result);
+        return result;
+    }
+
+    public List<DitibParsedPlace> parseNetherlands(File resourceFile)
+    {
+        // Mock data, for now...
+        List<DitibParsedPlace> result = new ArrayList<DitibParsedPlace>();
+
+        // HDV ORANJE KULTUR MERKEZI	SCHOOLSTR.50	2712VC	ZOETERMEER
+        {
+            DitibParsedPlace place = new DitibParsedPlace();
+            place.setName("HDV ORANJE KULTUR MERKEZI");
+            place.setCountry("NL");
+            place.setStreet("SCHOOLSTR.");
+            place.setStreetNumber("50");
+            place.setPostcode("2712VC");
+            place.setCity("ZOETERMEER");
+            place.setDitibCode(new DitibParsedPlaceKey(place).getKey());
+            result.add(place);
+        }
+
+        // HDV ULU	OUDENDIJK 267	3061AK	ROTTERDAM	010-4528326
+        {
+            DitibParsedPlace place = new DitibParsedPlace();
+            place.setName("HDV ULU");
+            place.setCountry("NL");
+            place.setStreet("OUDENDIJK");
+            place.setStreetNumber("267");
+            place.setPostcode("3061AK");
+            place.setCity("ROTTERDAM");
+            place.setDitibCode(new DitibParsedPlaceKey(place).getKey());
+            result.add(place);
+        }
+
+        // HDV ORHAN GAZİ	MANSHOLTSTR 130	9602 SJ	HOOGEZAND	0598-327050
+        {
+            DitibParsedPlace place = new DitibParsedPlace();
+            place.setName("HDV ORHAN GAZİ");
+            place.setCountry("NL");
+            place.setStreet("MANSHOLTSTR.");
+            place.setStreetNumber("130");
+            place.setPostcode("9602 SJ");
+            place.setCity("HOOGEZAND");
+            place.setDitibCode(new DitibParsedPlaceKey(place).getKey());
+            result.add(place);
+        }
+
+        // SULEYMANIYE CAMII	OOKMEERWEG 206	1068 AX	AMSTERDAM	020-6199589
+        {
+            DitibParsedPlace place = new DitibParsedPlace();
+            place.setName("SULEYMANIYE CAMII");
+            place.setCountry("NL");
+            place.setStreet("OOKMEERWEG");
+            place.setStreetNumber("206");
+            place.setPostcode("1068 AX");
+            place.setCity("AMSTERDAM");
+            place.setDitibCode(new DitibParsedPlaceKey(place).getKey());
+            result.add(place);
         }
 
         result = emptyIfNull(result);
