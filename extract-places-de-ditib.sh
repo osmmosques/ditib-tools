@@ -78,12 +78,12 @@ do
     mkdir -p ${STORAGE}/${country}/${MONTH}/${DAY}
 
     curl \
-        "http://localhost:8888/rest/ditib/import" \
-        -o ${LOGDIR}/curl-ditib-places-import.txt \
-        > ${LOGDIR}/curl-ditib-places-import.out \
-        2> ${LOGDIR}/curl-ditib-places-import.err
+        "http://localhost:8888/rest/ditib/import-de" \
+        -o ${LOGDIR}/curl-ditib-places-${country}-import.txt \
+        > ${LOGDIR}/curl-ditib-places-${country}-import.out \
+        2> ${LOGDIR}/curl-ditib-places-${country}-import.err
 
-    for x in curl-ditib-places-import.txt curl-ditib-places-import.out curl-ditib-places-import.err
+    for x in curl-ditib-places-${country}-import.txt curl-ditib-places-${country}-import.out curl-ditib-places-${country}-import.err
     do
         mv ${LOGDIR}/${x} ${STORAGE}/${country}/${MONTH}/${DAY}/${x}
     done

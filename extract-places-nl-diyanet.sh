@@ -52,5 +52,24 @@ then
     fi
 fi
 
-# find ${STORAGE}/${country} -type f -a -mtime +14 | xargs --no-run-if-empty rm
-# find ${STORAGE}/${country} -type d -a -empty | xargs --no-run-if-empty rmdir
+country=${COUNTRY}
+for country in netherlands
+do
+    :
+
+    mkdir -p ${STORAGE}/${country}/${MONTH}/${DAY}
+
+    curl \
+        "http://localhost:8888/rest/ditib/import-nl" \
+        -o ${LOGDIR}/curl-ditib-places-${country}-import.txt \
+        > ${LOGDIR}/curl-ditib-places-${country}-import.out \
+        2> ${LOGDIR}/curl-ditib-places-${country}-import.err
+
+    for x in curl-ditib-places-${country}-import.txt curl-ditib-places-${country}-import.out curl-ditib-places-${country}-import.err
+    do
+        mv ${LOGDIR}/${x} ${STORAGE}/${country}/${MONTH}/${DAY}/${x}
+    done
+
+done
+
+# FINI
