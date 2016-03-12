@@ -30,6 +30,11 @@ public interface DitibPlaceRepository extends PagingAndSortingRepository<DitibPl
 
     @Modifying
     @Transactional
+    @Query("update DitibPlace set valid = false where ADDR_COUNTRY = :addr_country")
+    void invalidateByCountryCode(@Param("addr_country") String countryCode);
+
+    @Modifying
+    @Transactional
     @Query("delete from DitibPlace where valid = false")
     void deleteAllInvalid();
 }
