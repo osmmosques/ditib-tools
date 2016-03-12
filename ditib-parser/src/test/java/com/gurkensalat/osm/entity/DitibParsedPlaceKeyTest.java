@@ -22,7 +22,7 @@ public class DitibParsedPlaceKeyTest
         testable.setStreet("Münchener Str.");
         testable.setStreetNumber("13a");
         DitibParsedPlaceKey key = new DitibParsedPlaceKey(testable);
-        assertEquals("de-82110-77-7", key.getKey());
+        assertEquals("de-82110-19-7", key.getKey());
     }
 
     @Test
@@ -33,7 +33,7 @@ public class DitibParsedPlaceKeyTest
         testable.setStreet("Dammstr.");
         testable.setStreetNumber("2");
         DitibParsedPlaceKey key = new DitibParsedPlaceKey(testable);
-        assertEquals("de-54329-98-0", key.getKey());
+        assertEquals("de-54329-26-0", key.getKey());
     }
 
     @Test
@@ -44,7 +44,7 @@ public class DitibParsedPlaceKeyTest
         testable.setStreet("Sigelstr.");
         testable.setStreetNumber("44");
         DitibParsedPlaceKey key = new DitibParsedPlaceKey(testable);
-        assertEquals("de-70806-51-4", key.getKey());
+        assertEquals("de-70806-77-4", key.getKey());
     }
 
     @Test
@@ -55,6 +55,6 @@ public class DitibParsedPlaceKeyTest
         testable.setStreet("Schanzenbachstr.");
         testable.setStreetNumber("1");
         DitibParsedPlaceKey key = new DitibParsedPlaceKey(testable);
-        assertEquals("de-81371-91-9", key.getKey());
+        assertEquals("de-81371-11-9", key.getKey());
     }
 }

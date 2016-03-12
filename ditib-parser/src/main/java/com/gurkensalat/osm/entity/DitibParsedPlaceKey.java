@@ -1,6 +1,9 @@
 package com.gurkensalat.osm.entity;
 
+import java.util.Locale;
+
 import static org.apache.commons.lang3.StringUtils.isEmpty;
+import static org.apache.commons.lang3.StringUtils.trimToEmpty;
 
 public class DitibParsedPlaceKey
 {
@@ -14,16 +17,18 @@ public class DitibParsedPlaceKey
     {
         this.key = "";
 
-        String postCode = ditibParsedPlace.getPostcode();
+        String postCode = trimToEmpty(ditibParsedPlace.getPostcode());
         if (isEmpty(postCode))
         {
             postCode = "00000";
         }
 
-        String streetCode = Integer.toString(ditibParsedPlace.getStreet().hashCode() + 1000000000);
+        String street = trimToEmpty(ditibParsedPlace.getStreet()).toLowerCase(Locale.US);
+        String streetCode = Integer.toString(street.hashCode() + 1000000000);
         streetCode = streetCode.substring(streetCode.length() - 2);
 
-        String houseNumberCode = Integer.toString(ditibParsedPlace.getStreetNumber().hashCode() + 1000000000);
+        String houseNumber = trimToEmpty(ditibParsedPlace.getStreetNumber()).toLowerCase(Locale.US);
+        String houseNumberCode = Integer.toString(houseNumber.hashCode() + 1000000000);
         houseNumberCode = houseNumberCode.substring(houseNumberCode.length() - 1);
 
         this.key = "de-" + postCode + "-" + streetCode + "-" + houseNumberCode;
