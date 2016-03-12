@@ -75,9 +75,6 @@ for country in germany
 do
     :
 
-    # TODO temporarily keep our old cached data
-    cp ${STORAGE}/${country}-${source}-keepme/201503/20150331/*.html ${WEBDATA}
-
     mkdir -p ${STORAGE}/${country}/${MONTH}/${DAY}
 
     curl \
@@ -102,6 +99,7 @@ do
         mv ${LOGDIR}/${x} ${STORAGE}/${country}/${MONTH}/${DAY}/${x}
     done
 
+    # Every single extracted DITIB place
     # cp -ar ${WEBDATA}/${country}-${source}-split-* ${STORAGE}/${country}-${source}/${MONTH}/${DAY}
 done
 
