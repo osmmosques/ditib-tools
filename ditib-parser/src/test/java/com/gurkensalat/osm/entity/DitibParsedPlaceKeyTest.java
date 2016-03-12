@@ -15,7 +15,7 @@ public class DitibParsedPlaceKeyTest
     }
 
     @Test
-    public void testKeyGermering()
+    public void testKeyDEGermering()
     {
         DitibParsedPlace testable = new DitibParsedPlace();
         testable.setPostcode("82110");
@@ -26,7 +26,7 @@ public class DitibParsedPlaceKeyTest
     }
 
     @Test
-    public void testKeyKonz()
+    public void testKeyDEKonz()
     {
         DitibParsedPlace testable = new DitibParsedPlace();
         testable.setPostcode("54329");
@@ -37,7 +37,7 @@ public class DitibParsedPlaceKeyTest
     }
 
     @Test
-    public void testKeyKornwestheim()
+    public void testKeyDEKornwestheim()
     {
         DitibParsedPlace testable = new DitibParsedPlace();
         testable.setPostcode("70806");
@@ -48,7 +48,7 @@ public class DitibParsedPlaceKeyTest
     }
 
     @Test
-    public void testKeyMünchenUntersendling()
+    public void testKeyDEMünchenUntersendling()
     {
         DitibParsedPlace testable = new DitibParsedPlace();
         testable.setPostcode("81371");
@@ -56,5 +56,31 @@ public class DitibParsedPlaceKeyTest
         testable.setStreetNumber("1");
         DitibParsedPlaceKey key = new DitibParsedPlaceKey(testable);
         assertEquals("de-81371-11-9", key.getKey());
+    }
+
+    @Test
+    public void testNLZoetermeer()
+    {
+        // HDV ORANJE KULTUR MERKEZI	SCHOOLSTR.50	2712VC	ZOETERMEER
+        DitibParsedPlace testable = new DitibParsedPlace();
+        testable.setCountry("NL");
+        testable.setPostcode("2712VC");
+        testable.setStreet("SCHOOLSTR.");
+        testable.setStreetNumber("50");
+        DitibParsedPlaceKey key = new DitibParsedPlaceKey(testable);
+        assertEquals("nl-2712vc-45-1", key.getKey());
+    }
+
+    @Test
+    public void testNLZaandam()
+    {
+        // HDV SULTAN AHMET	POELENBURG 156	1504 NH	ZAANDAM	075-6354775
+        DitibParsedPlace testable = new DitibParsedPlace();
+        testable.setCountry("NL");
+        testable.setPostcode("1504 NH");
+        testable.setStreet("POELENBURG");
+        testable.setStreetNumber("156");
+        DitibParsedPlaceKey key = new DitibParsedPlaceKey(testable);
+        assertEquals("nl-1504nh-31-6", key.getKey());
     }
 }

@@ -16,6 +16,8 @@ public class DitibParsedPlace
 
     private String city;
 
+    private String country;
+
     private String phone;
 
     private String fax;
@@ -84,6 +86,16 @@ public class DitibParsedPlace
         this.city = city;
     }
 
+    public String getCountry()
+    {
+        return country;
+    }
+
+    public void setCountry(String country)
+    {
+        this.country = country;
+    }
+
     public String getPhone()
     {
         return phone;
@@ -130,6 +142,7 @@ public class DitibParsedPlace
                 append(ditibCode).append(name).
                 append(street).append(streetNumber).
                 append(postcode).append(city).
+                append(country).
                 append(phone).append(fax).
                 toString();
     }
