@@ -99,7 +99,8 @@ do
         mv ${LOGDIR}/${x} ${STORAGE}/${country}/${MONTH}/${DAY}/${x}
     done
 
-    cp -ar ${WEBDATA}/${country}-${source}-split-* ${STORAGE}/${country}-${source}/${MONTH}/${DAY}
+    # Every single extracted DITIB place
+    # cp -ar ${WEBDATA}/${country}-${source}-split-* ${STORAGE}/${country}-${source}/${MONTH}/${DAY}
 done
 
 db=osm_mosques
