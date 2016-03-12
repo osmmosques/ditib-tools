@@ -37,7 +37,7 @@ public class DitibRepositoryImplTest
 
         DitibParsedPlace place = result.get(0);
         assertNotNull(place);
-        assertEquals("ditibCode mismatch", "GERMERING", place.getDitibCode());
+        assertEquals("ditibCode mismatch", "de-82110-19-7", place.getDitibCode());
         assertEquals("Name mismatch", "Türkisch Islamische Kultur Verein e.V.", place.getName());
         assertEquals("Street name mismatch", "Münchener Str.", place.getStreet());
         assertEquals("Street number mismatch", "13a", place.getStreetNumber());
@@ -58,7 +58,7 @@ public class DitibRepositoryImplTest
         assertEquals(3, result.size());
 
         DitibParsedPlace place = result.get(0);
-        assertEquals("ditibCode 1 mismatch", "KONZ", place.getDitibCode());
+        assertEquals("ditibCode 1 mismatch", "de-54329-26-0", place.getDitibCode());
         assertEquals("Name 1 mismatch", "DITIB Türkisch Islamische Kultur Verein e.V.", place.getName());
         assertEquals("Street 1 name mismatch", "Dammstr.", place.getStreet());
         assertEquals("Street 1 number mismatch", "2", place.getStreetNumber());
@@ -68,7 +68,7 @@ public class DitibRepositoryImplTest
         assertEquals("City 1 mismatch", "KONZ", place.getCity());
 
         place = result.get(1);
-        assertEquals("ditibCode 2 mismatch", "KORBACH", place.getDitibCode());
+        assertEquals("ditibCode 2 mismatch", "de-34497-82-1", place.getDitibCode());
         assertEquals("Name 2 mismatch", "DITIB Türkisch Islamische Kultur Verein e.V.", place.getName());
         assertEquals("Street 2 name mismatch", "Gabelsbergerstr.", place.getStreet());
         assertEquals("Street 2 number mismatch", "3", place.getStreetNumber());
@@ -78,7 +78,7 @@ public class DitibRepositoryImplTest
         assertEquals("City 2 mismatch", "KORBACH", place.getCity());
 
         place = result.get(2);
-        assertEquals("ditibCode 3 mismatch", "KORNWESTHEIM", place.getDitibCode());
+        assertEquals("ditibCode 3 mismatch", "de-70806-77-4", place.getDitibCode());
         assertEquals("Name 3 mismatch", "DITIB Türkisch Islamische Kultur Verein e.V.", place.getName());
         assertEquals("Street 3 name mismatch", "Sigelstr.", place.getStreet());
         assertEquals("Street 3 number mismatch", "44", place.getStreetNumber());
