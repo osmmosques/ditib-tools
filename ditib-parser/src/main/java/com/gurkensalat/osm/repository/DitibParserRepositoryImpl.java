@@ -1,6 +1,7 @@
 package com.gurkensalat.osm.repository;
 
 import com.gurkensalat.osm.entity.DitibParsedPlace;
+import com.gurkensalat.osm.entity.DitibParsedPlaceKey;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
@@ -93,7 +94,9 @@ public class DitibParserRepositoryImpl implements DitibParserRepository
                             String email = safeGetElement(brElements, 3);
                         }
 
+                        place.setDitibCode(new DitibParsedPlaceKey(place).getKey());
                         place.setDitibCode(stripToEmpty(place.getDitibCode()));
+
                         place.setName(stripToEmpty(place.getName()));
 
                         place.setStreet(stripToEmpty(place.getStreet()));
