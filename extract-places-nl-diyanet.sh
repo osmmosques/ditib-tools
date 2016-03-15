@@ -53,8 +53,8 @@ then
 fi
 
 # Copy WEBDATA back to Dropbox
-mkdir -p ${STORAGE}/_data-ditib-nl/
-rsync -ar ${WEBDATA}/ ${STORAGE}/_data-ditib-nl/
+# mkdir -p ${STORAGE}/_data-ditib-nl/
+# rsync -ar ${WEBDATA}/ ${STORAGE}/_data-ditib-nl/
 
 
 country=${COUNTRY}
