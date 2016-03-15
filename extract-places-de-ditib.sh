@@ -31,6 +31,11 @@ extract_data() {
 }
 
 
+# Copy WEBDATA back to Dropbox
+mkdir -p ${STORAGE}/_data-ditib-de/${MONTH}/${DAY}
+rsync -ar ${WEBDATA}/ ${STORAGE}/_data-ditib-de/${MONTH}/${DAY}/
+
+
 country=${COUNTRY}
 source=${SOURCE}
 for page in $(seq 0 9)

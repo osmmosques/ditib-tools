@@ -52,6 +52,11 @@ then
     fi
 fi
 
+# Copy WEBDATA back to Dropbox
+mkdir -p ${STORAGE}/_data-ditib-nl/${MONTH}/${DAY}
+rsync -ar ${WEBDATA}/ ${STORAGE}/_data-ditib-nl/${MONTH}/${DAY}/
+
+
 country=${COUNTRY}
 for country in netherlands
 do
