@@ -82,7 +82,7 @@ do
 
     mkdir -p ${STORAGE}/${country}/${MONTH}/${DAY}
 
-    curl \
+    curl -X POST \
         "http://localhost:8888/rest/ditib/import-de" \
         -o ${LOGDIR}/curl-ditib-places-${country}-import.txt \
         > ${LOGDIR}/curl-ditib-places-${country}-import.out \
