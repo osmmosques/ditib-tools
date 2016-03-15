@@ -1,10 +1,10 @@
 #! /bin/sh
 
-OSMOSIS=${HOME}/osmosis-0.44.1
-STORAGE=${HOME}/Dropbox/osmdata
-TMPDIR=${HOME}/tmp/osm-place-diyanet
-WEBDATA=/home/tomcat/osm-mosques/data
-LOGDIR=${HOME}/logs
+set -e
+
+export HERE=$(dirname $(readlink -f $0))
+. ${HERE}/settings.sh
+
 
 COUNTRY=netherlands
 
