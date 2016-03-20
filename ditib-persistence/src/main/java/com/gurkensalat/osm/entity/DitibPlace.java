@@ -37,6 +37,16 @@ public class DitibPlace extends OsmPlaceBase
         this.setKey(key);
         this.setAddress(new Address());
         this.setContact(new Contact());
+
+        if (getCreationTime() == null)
+        {
+            setCreationTime(DateTime.now());
+        }
+
+        if (getModificationTime() == null)
+        {
+            setModificationTime(DateTime.now());
+        }
     }
 
     public String getDitibCode()
