@@ -83,7 +83,7 @@ do
     mkdir -p ${STORAGE}/${country}/${MONTH}/${DAY}
 
     curl -X POST \
-        "http://localhost:8888/rest/ditib/import-de" \
+        "http://localhost:8888/rest/internal/ditib/import-de" \
         -o ${LOGDIR}/curl-ditib-places-${country}-import.txt \
         > ${LOGDIR}/curl-ditib-places-${country}-import.out \
         2> ${LOGDIR}/curl-ditib-places-${country}-import.err
@@ -94,7 +94,7 @@ do
     done
 
     curl \
-        "http://localhost:8888/rest/ditibPlace?size=999&sort=name" \
+        "http://localhost:8888/rest/internal/ditibPlace?size=9999&sort=name" \
         -o ${LOGDIR}/curl-ditib-places-data.txt \
         > ${LOGDIR}/curl-ditib-places-data.out \
         2> ${LOGDIR}/curl-ditib-places-data.err

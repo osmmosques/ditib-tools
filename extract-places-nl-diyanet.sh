@@ -65,7 +65,7 @@ do
     mkdir -p ${STORAGE}/${country}/${MONTH}/${DAY}
 
     curl -X POST \
-        "http://localhost:8888/rest/ditib/import-nl" \
+        "http://localhost:8888/rest/internal/ditib/import-nl" \
         -o ${LOGDIR}/curl-ditib-places-${country}-import.txt \
         > ${LOGDIR}/curl-ditib-places-${country}-import.out \
         2> ${LOGDIR}/curl-ditib-places-${country}-import.err
