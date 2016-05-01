@@ -19,12 +19,12 @@ public class DitibPlace extends OsmPlaceBase
     @Column(name = "GEOCODED")
     private boolean geocoded;
 
-    @Column(name = "LAST_GEOCODE_ATTEMT")
+    @Column(name = "LAST_GEOCODE_ATTEMPT")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime lastGeocodeAttemt;
+    private DateTime lastGeocodeAttempt;
 
     @Transient
-    private String humanReadableLastGeocodeAttemt;
+    private String humanReadableLastGeocodeAttempt;
 
 
     protected DitibPlace()
@@ -69,24 +69,24 @@ public class DitibPlace extends OsmPlaceBase
         this.geocoded = geocoded;
     }
 
-    public DateTime getLastGeocodeAttemt()
+    public DateTime getLastGeocodeAttempt()
     {
-        return lastGeocodeAttemt;
+        return lastGeocodeAttempt;
     }
 
-    public void setLastGeocodeAttemt(DateTime lastGeocodeAttemt)
+    public void setLastGeocodeAttempt(DateTime lastGeocodeAttempt)
     {
-        this.lastGeocodeAttemt = lastGeocodeAttemt;
+        this.lastGeocodeAttempt = lastGeocodeAttempt;
     }
 
-    public String getHumanReadableLastGeocodeAttemt()
+    public String getHumanReadableLastGeocodeAttempt()
     {
-        return humanReadableLastGeocodeAttemt;
+        return humanReadableLastGeocodeAttempt;
     }
 
-    public void setHumanReadableLastGeocodeAttemt(String humanReadableLastGeocodeAttemt)
+    public void setHumanReadableLastGeocodeAttempt(String humanReadableLastGeocodeAttempt)
     {
-        this.humanReadableLastGeocodeAttemt = humanReadableLastGeocodeAttemt;
+        this.humanReadableLastGeocodeAttempt = humanReadableLastGeocodeAttempt;
     }
 
     public String toString()
