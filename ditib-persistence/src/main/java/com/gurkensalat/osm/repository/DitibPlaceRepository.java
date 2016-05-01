@@ -1,6 +1,7 @@
 package com.gurkensalat.osm.repository;
 
 import com.gurkensalat.osm.entity.DitibPlace;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -37,4 +38,7 @@ public interface DitibPlaceRepository extends PagingAndSortingRepository<DitibPl
     @Transactional
     @Query("delete from DitibPlace where valid = false")
     void deleteAllInvalid();
+
+    @Query("SELECT p FROM DitibPlace p WHERE p.geocoded = false order by p.lastGeocodeAttempt, p.ditibCode")
+    List<DitibPlace> geocodingCandidates(Pageable pageable);
 }
