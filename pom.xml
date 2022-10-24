@@ -96,7 +96,7 @@
 
         <!-- Testing -->
         <junit.version>4.12</junit.version>
-        <mockito.version>1.10.19</mockito.version>
+        <mockito.version>4.8.1</mockito.version>
         <springockito.version>1.0.9</springockito.version>
 
         <!-- stuff -->
